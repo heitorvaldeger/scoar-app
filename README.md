@@ -1,3 +1,3 @@
-# scoar-app - Projeto Integrador
+# Projeto Integrador (scoar-app)
 
 ## Sobre o projeto
