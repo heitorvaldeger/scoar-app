@@ -69,9 +69,12 @@
 <script>
 export default {
   name: 'DispositivosModal',
-  props: [
-    'modal'
-  ],
+  props: {
+    modal: {
+      type: Boolean,
+      default: false
+    }
+  },
   data: () => ({
     id: '',
     nome: '',

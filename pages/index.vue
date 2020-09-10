@@ -7,7 +7,6 @@
           dense
           placeholder="Filtrar por local"
           append-outer-icon="mdi-plus"
-          @click:append-outer="addLocal"
         >
           <template v-slot:append-outer>
             <v-tooltip bottom>
@@ -51,9 +50,6 @@ export default {
     dispositivosModal: false
   }),
   methods: {
-    addLocal () {
-      console.log('Clicked')
-    },
     onCloseDispositivosModal () {
       this.dispositivosModal = false
     }
