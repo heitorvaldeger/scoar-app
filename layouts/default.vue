@@ -7,6 +7,13 @@
       height="60"
     >
       <img src="~/assets/images/ifrn-logo.png" width="150">
+      <v-spacer />
+      <v-btn class="mx-2" link to="/" depressed>
+        Home
+      </v-btn>
+      <v-btn class="mx-2" link to="locais" depressed>
+        Locais
+      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container fluid>
