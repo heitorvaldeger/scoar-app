@@ -15,8 +15,11 @@
   "dependencies": {
     "@nuxt/content": "^1.5.0",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
+    "firebase": "^7.20.0",
     "nuxt": "^2.14.0",
-    "vee-validate": "^3.3.9"
+    "vee-validate": "^3.3.9",
+    "vue-radial-progress": "^0.3.2",
+    "vuexfire": "^3.2.4"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.1.0",

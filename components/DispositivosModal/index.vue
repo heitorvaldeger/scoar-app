@@ -1,13 +1,13 @@
 <template>
   <div class="text-center">
     <v-dialog
-      v-model="modal"
+      v-model="modal.status"
       width="500"
       @click:outside="close"
     >
       <v-card>
-        <v-card-title class="headline lighten-2">
-          Privacy Policy
+        <v-card-title class="headline lighten-2 text-capitalize font-weight-light">
+          {{ modal.title }} dispositivo
         </v-card-title>
 
         <v-card-text>
@@ -16,7 +16,7 @@
               <v-container>
                 <ValidationProvider v-slot="{ errors }" name="ID" rules="required">
                   <v-text-field
-                    v-model="id"
+                    v-model="model.id"
                     placeholder="ID do dispositivo"
                     required
                     :error-messages="errors"
@@ -24,7 +24,7 @@
                 </ValidationProvider>
                 <ValidationProvider v-slot="{ errors }" name="Nome" rules="required">
                   <v-text-field
-                    v-model="nome"
+                    v-model="model.nome"
                     placeholder="Nome do dispositivo"
                     required
                     :error-messages="errors"
@@ -32,7 +32,7 @@
                 </ValidationProvider>
                 <ValidationProvider v-slot="{ errors }" name="Local" rules="required">
                   <v-autocomplete
-                    v-model="local"
+                    v-model="model.local"
                     placeholder="Local do dispositivo"
                     required
                     :error-messages="errors"
@@ -71,15 +71,18 @@ export default {
   name: 'DispositivosModal',
   props: {
     modal: {
-      type: Boolean,
-      default: false
+      type: Object,
+      default: null
     }
   },
   data: () => ({
-    id: '',
-    nome: '',
-    local: ''
+    model: {}
   }),
+  created () {
+    if (this.modal.data) {
+      this.model = Object.assign({}, this.modal.data)
+    }
+  },
   methods: {
     submit () {
       ''
