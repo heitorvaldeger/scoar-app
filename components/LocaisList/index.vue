@@ -1,9 +1,10 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="items"
+    :items="locais"
     sort-by="calories"
     class="elevation-1"
+    item-key=".key"
   >
     <template v-slot:top>
       <v-toolbar flat color="white">
@@ -19,12 +20,12 @@
     </template>
     <template v-slot:item.actions="{ item }">
       <locais-edit :item="item" />
-      <v-btn small depressed outlined color="error">
+      <v-btn small depressed outlined color="error" @click="remove(item['.key'])">
         Apagar
       </v-btn>
     </template>
     <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize">
+      <v-btn color="primary">
         Reset
       </v-btn>
     </template>
@@ -32,6 +33,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import LocaisAdd from '~/components/LocaisAdd'
 import LocaisEdit from '~/components/LocaisEdit'
 
@@ -52,27 +54,19 @@ export default {
       { text: 'Nome', value: 'nome' },
       { text: 'Apelidos', value: 'apelidos' },
       { text: 'Actions', value: 'actions', sortable: false, align: 'center' }
-    ],
-    items: []
+    ]
   }),
-  created () {
-    this.initialize()
+  computed: {
+    ...mapState({
+      locais: state => state.locais.all
+    })
   },
-
+  created () {
+    this.$store.dispatch('locais/getLocais')
+  },
   methods: {
-    initialize () {
-      this.items = [
-        {
-          id: 'C23',
-          nome: 'Sala de Aula',
-          apelidos: 'MSI 4º Ano'
-        },
-        {
-          id: 'C18',
-          nome: 'Laboratório de Informática',
-          apelidos: 'Info 4º Ano'
-        }
-      ]
+    remove (itemKey) {
+      this.$store.dispatch('locais/deleteLocal', itemKey)
     }
   }
 }

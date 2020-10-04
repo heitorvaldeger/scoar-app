@@ -61,8 +61,28 @@ export default {
   modules: [
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt/content
-    '@nuxt/content'
+    '@nuxt/content',
+    '@nuxtjs/firebase'
   ],
+
+  firebase: {
+    config: {
+      apiKey: 'AIzaSyDi7FTJplxdcfOjRdkq4in0MsA-MSRLULc',
+      authDomain: 'scoar-app.firebaseapp.com',
+      databaseURL: (process.env.NODE_ENV === 'production')
+        ? 'https://scoar-app.firebaseio.com'
+        : 'http://localhost:9000?ns=scoar-app',
+      projectId: 'scoar-app',
+      storageBucket: 'scoar-app.appspot.com',
+      messagingSenderId: '863908883910',
+      appId: '1:863908883910:web:809f00cd5b6a123c6c16c7',
+      measurementId: 'G-RG65LNDC1C'
+    },
+    services: {
+      auth: false, // Just as example. Can be any other service.
+      realtimeDb: true
+    }
+  },
   /*
   ** Content module configuration
   ** See https://content.nuxtjs.org/configuration

@@ -15,37 +15,56 @@
 
       <template v-slot:content>
         <v-container>
-          <v-form autocomplete="off">
-            <v-row>
-              <v-col cols="12">
-                <v-text-field label="ID do Local" hint="Ex.: C22, A28" />
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12">
-                <v-text-field
-                  label="Nome do Local"
-                  hint="Ex.: Lab de Informática, Lab de Eletrônica"
-                />
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12">
-                <v-text-field label="Apelidos" hint="Ex.: MSI 4º Ano, Alimentos 1º Ano" />
-              </v-col>
-            </v-row>
-          </v-form>
+          <ValidationObserver ref="form">
+            <v-form
+              autocomplete="off"
+              @submit.prevent="onSubmit"
+            >
+              <v-row>
+                <v-col cols="12">
+                  <ValidationProvider v-slot="{ errors }" name="ID" rules="required">
+                    <v-text-field
+                      v-model="local.id"
+                      label="ID do Local"
+                      hint="Ex.: C22, A28"
+                      required
+                      :error-messages="errors"
+                    />
+                  </ValidationProvider>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12">
+                  <ValidationProvider v-slot="{ errors }" name="Nome" rules="required">
+                    <v-text-field
+                      v-model="local.nome"
+                      label="Nome do Local"
+                      hint="Ex.: Lab de Informática, Lab de Eletrônica"
+                      :error-messages="errors"
+                    />
+                  </ValidationProvider>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="local.apelidos"
+                    label="Apelidos"
+                    hint="Ex.: MSI 4º Ano, Alimentos 1º Ano"
+                  />
+                </v-col>
+              </v-row>
+              <v-row justify="end">
+                <v-btn color="black darken-1" text @click="close">
+                  Cancel
+                </v-btn>
+                <v-btn color="blue darken-1" text type="submit">
+                  Save
+                </v-btn>
+              </v-row>
+            </v-form>
+          </ValidationObserver>
         </v-container>
-      </template>
-
-      <template v-slot:actions>
-        <v-spacer />
-        <v-btn color="blue darken-1" text @click="close">
-          Cancel
-        </v-btn>
-        <v-btn color="blue darken-1" text @click="save">
-          Save
-        </v-btn>
       </template>
     </modal-base>
   </div>
@@ -60,7 +79,8 @@ export default {
     ModalBase
   },
   data: () => ({
-    modal: false
+    modal: false,
+    local: {}
   }),
   methods: {
     open () {
@@ -68,9 +88,19 @@ export default {
     },
     close () {
       this.modal = false
+      this.$refs.form.reset()
+      this.local = {}
     },
-    save () {
+    onSubmit () {
+      this.$refs.form.validate()
+        .then((success) => {
+          if (!success) { return }
 
+          this.$store.dispatch('locais/addLocal', this.local)
+            .then(() => {
+              this.close()
+            })
+        })
     }
   }
 }

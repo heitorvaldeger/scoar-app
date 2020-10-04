@@ -8,10 +8,10 @@
     >
       <img src="~/assets/images/ifrn-logo.png" width="150">
       <v-spacer />
-      <v-btn class="mx-2" link to="/" depressed>
+      <v-btn class="mx-2" link to="/" text>
         Home
       </v-btn>
-      <v-btn class="mx-2" link to="locais" depressed>
+      <v-btn class="mx-2" link to="locais" text>
         Locais
       </v-btn>
     </v-app-bar>

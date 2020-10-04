@@ -14,8 +14,9 @@
   },
   "dependencies": {
     "@nuxt/content": "^1.5.0",
+    "@nuxtjs/firebase": "^6.1.1",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
-    "firebase": "^7.20.0",
+    "firebase": "^7.22.0",
     "nuxt": "^2.14.0",
     "vee-validate": "^3.3.9",
     "vue-radial-progress": "^0.3.2",
