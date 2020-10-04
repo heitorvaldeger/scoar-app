@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="8" class="pa-0">
+    <v-row align="center">
+      <v-col cols="7" class="pa-0">
         <v-autocomplete
           item-value="id"
           :item-text="(item) => {return `${item.id} - ${item.nome}`}"
@@ -15,18 +15,23 @@
       </v-col>
     </v-row>
     <v-row>
-      <dispositivos-list />
+      <v-col cols="3" class="pa-0">
+        <dispositivos-add />
+      </v-col>
+      <!-- <dispositivos-list /> -->
     </v-row>
   </v-container>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import DispositivosList from '~/components/DispositivosList'
+// import DispositivosList from '~/components/DispositivosList'
+import DispositivosAdd from '~/components/DispositivosAdd'
 
 export default {
   components: {
-    DispositivosList
+    // DispositivosList,
+    DispositivosAdd
   },
   computed: {
     ...mapState({
