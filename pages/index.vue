@@ -14,24 +14,17 @@
         />
       </v-col>
     </v-row>
-    <v-row>
-      <v-col cols="3" class="pa-0">
-        <dispositivos-add />
-      </v-col>
-      <!-- <dispositivos-list /> -->
-    </v-row>
+    <dispositivos-list />
   </v-container>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 // import DispositivosList from '~/components/DispositivosList'
-import DispositivosAdd from '~/components/DispositivosAdd'
 
 export default {
   components: {
     // DispositivosList,
-    DispositivosAdd
   },
   computed: {
     ...mapState({

@@ -1,16 +1,9 @@
 <template>
-  <div class="dispositivos-list">
-    <v-btn
-      depressed
-      height="40"
-      color="success"
-      @click="modal = {type:'DispositivosModal', title:'criar', status: true}"
-    >
-      Novo Dispositivo
-    </v-btn>
+  <div>
+    <dispositivos-add />
     <v-row>
-      <v-col cols="4">
-        <dispositivos-item v-for="(dispositivos, index) in dispositivos" :key="index">
+      <v-col v-for="(dispositivo, index) in dispositivos" :key="index" cols="auto">
+        <dispositivos-item :item="dispositivo">
           <template v-slot:menu>
             <v-menu offset-y>
               <template v-slot:activator="{ on, attrs }">
@@ -23,12 +16,11 @@
                 </v-btn>
               </template>
               <v-list>
-                <v-list-item
-                  v-for="(item, i) in items"
-                  :key="i"
-                  @click="onMenuClick({...item})"
-                >
-                  <v-list-item-title>{{ item.title }}</v-list-item-title>
+                <v-list-item>
+                  <v-list-item-title>Editar</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="remove(dispositivo['.key'])">
+                  <v-list-item-title>Apagar</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -36,43 +28,25 @@
         </dispositivos-item>
       </v-col>
     </v-row>
-    <component :is="modal.type" v-show="modal.type" :modal="modal" @close="onCloseModal" />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import DispositivosItem from '~/components/DispositivosItem'
-import DispositivosModal from '~/components/DispositivosModal'
 
 export default {
   name: 'DispositivosList',
-  components: {
-    DispositivosItem,
-    DispositivosModal
-  },
-  data: () => ({
-    modal: {},
-    items: [
-      { title: 'Editar', type: 'DispositivosModal' },
-      { title: 'Apagar' }
-    ]
-  }),
   computed: {
-    ...mapState({ dispositivos: state => state.dispositivos.all })
+    ...mapState({
+      dispositivos: state => state.dispositivos.all
+    })
   },
   created () {
     this.$store.dispatch('dispositivos/getDispositivos')
   },
   methods: {
-    onCloseModal () {
-      this.modal = {}
-    },
-    onMenuClick (attr) {
-      this.modal = {
-        ...attr,
-        status: true
-      }
+    remove (dispositivoKey) {
+      this.$store.dispatch('dispositivos/deleteDispositivo', dispositivoKey)
     }
   }
 }
