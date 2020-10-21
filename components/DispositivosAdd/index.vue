@@ -21,24 +21,22 @@
             >
               <v-row>
                 <v-col cols="12">
+                  <v-radio-group v-model="typeGroup">
+                    <v-radio
+                      label="Ar Condicionado"
+                      value="Ar Condicionado"
+                    ></v-radio>
+                  </v-radio-group>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12">
                   <ValidationProvider v-slot="{ errors }" name="ID" rules="required">
                     <v-text-field
                       v-model="dispositivo.id"
                       label="ID do dispositivo"
                       hint="Ex.: AC01, AC02"
                       required
-                      :error-messages="errors"
-                    />
-                  </ValidationProvider>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col cols="12">
-                  <ValidationProvider v-slot="{ errors }" name="Nome" rules="required">
-                    <v-text-field
-                      v-model="dispositivo.nome"
-                      label="Nome do Dispositivo"
-                      hint="Ex.: Ar Condicionado"
                       :error-messages="errors"
                     />
                   </ValidationProvider>
@@ -86,7 +84,8 @@ export default {
   },
   data: () => ({
     modal: false,
-    dispositivo: {}
+    dispositivo: {},
+    typeGroup: 'Ar Condicionado'
   }),
   computed: {
     ...mapState({
@@ -107,7 +106,10 @@ export default {
         .then((success) => {
           if (!success) { return }
 
-          this.$store.dispatch('dispositivos/addDispositivo', this.dispositivo)
+          this.$store.dispatch('dispositivos/addDispositivo', {
+            ...this.dispositivo,
+            nome: this.typeGroup
+            })
             .then(() => {
               this.close()
             })
