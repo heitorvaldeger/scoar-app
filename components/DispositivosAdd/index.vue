@@ -22,10 +22,14 @@
               <v-row>
                 <v-col cols="12">
                   <v-radio-group v-model="typeGroup">
+                    <template v-slot:label>
+                      <div>Tipo de Dispositivo</div>
+                    </template>
                     <v-radio
+                      class="mt-5"
                       label="Ar Condicionado"
                       value="Ar Condicionado"
-                    ></v-radio>
+                    />
                   </v-radio-group>
                 </v-col>
               </v-row>
@@ -109,7 +113,7 @@ export default {
           this.$store.dispatch('dispositivos/addDispositivo', {
             ...this.dispositivo,
             nome: this.typeGroup
-            })
+          })
             .then(() => {
               this.close()
             })
