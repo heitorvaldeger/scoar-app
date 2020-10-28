@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-show="modal" v-model="modal" max-width="500px" @click:outside="close">
+  <v-dialog v-model="visible" max-width="500px" @click:outside="visible = false">
     <v-card>
       <v-card-title>
         <slot name="header" />
@@ -18,13 +18,19 @@
 export default {
   name: 'ModalBase',
   props: {
-    modal: {
+    show: {
       type: Boolean,
-      defauly: false
-    },
-    close: {
-      type: Function,
-      default: null
+      required: true
+    }
+  },
+  computed: {
+    visible: {
+      get () {
+        return this.show
+      },
+      set (value) {
+        if (!value) { this.$emit('close') }
+      }
     }
   }
 }

@@ -3,7 +3,7 @@
     <v-card-title class="pb-0">
       <v-row>
         <v-col cols="auto">
-          {{ item.id }} - {{ item.nome }}
+          {{ item.id }} - {{ item.tipo }}
         </v-col>
         <v-col cols="auto" class="ml-auto">
           <slot name="menu" />

@@ -20,12 +20,8 @@
 
 <script>
 import { mapState } from 'vuex'
-// import DispositivosList from '~/components/DispositivosList'
 
 export default {
-  components: {
-    // DispositivosList,
-  },
   computed: {
     ...mapState({
       locais: state => state.locais.all

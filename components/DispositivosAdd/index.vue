@@ -3,11 +3,11 @@
     <v-btn
       color="gray"
       dark
-      @click="open"
+      @click="openDialog"
     >
       Novo Dispositivo
     </v-btn>
-    <modal-base v-show="modal" :modal="modal" :close="close">
+    <modal-base :show="dialog" @close="closeDialog">
       <template v-slot:header>
         <span class="headline">Novo Dispositivo</span>
       </template>
@@ -50,7 +50,7 @@
                 <v-col cols="12">
                   <ValidationProvider v-slot="{ errors }" name="Local" rules="required">
                     <v-autocomplete
-                      v-model="dispositivo.localKey"
+                      v-model="dispositivo.local"
                       placeholder="Local do dispositivo"
                       required
                       :item-value="(item) => item['.key']"
@@ -62,7 +62,7 @@
                 </v-col>
               </v-row>
               <v-row justify="end">
-                <v-btn color="black darken-1" text @click="close">
+                <v-btn color="black darken-1" text @click="closeDialog">
                   Cancel
                 </v-btn>
                 <v-btn dark color="blue darken-1" depressed type="submit">
@@ -87,9 +87,9 @@ export default {
     ModalBase
   },
   data: () => ({
-    modal: false,
     dispositivo: {},
-    typeGroup: 'Ar Condicionado'
+    typeGroup: 'Ar Condicionado',
+    dialog: false
   }),
   computed: {
     ...mapState({
@@ -97,11 +97,11 @@ export default {
     })
   },
   methods: {
-    open () {
-      this.modal = true
+    openDialog () {
+      this.dialog = true
     },
-    close () {
-      this.modal = false
+    closeDialog () {
+      this.dialog = false
       this.$refs.form.reset()
       this.dispositivo = {}
     },
@@ -112,10 +112,10 @@ export default {
 
           this.$store.dispatch('dispositivos/addDispositivo', {
             ...this.dispositivo,
-            nome: this.typeGroup
+            tipo: this.typeGroup
           })
             .then(() => {
-              this.close()
+              this.closeDialog()
             })
         })
     }

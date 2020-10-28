@@ -20,6 +20,7 @@
         <nuxt />
       </v-container>
     </v-main>
+    <portal-target name="modal" />
   </v-app>
 </template>
 

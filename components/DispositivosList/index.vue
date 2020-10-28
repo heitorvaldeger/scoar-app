@@ -2,8 +2,8 @@
   <div>
     <dispositivos-add />
     <v-row>
-      <v-col v-for="(dispositivo, index) in dispositivos" :key="index" cols="auto">
-        <dispositivos-item :item="dispositivo">
+      <v-col v-for="(item, index) in dispositivos" :key="index" cols="auto">
+        <dispositivos-item :item="item">
           <template v-slot:menu>
             <v-menu offset-y>
               <template v-slot:activator="{ on, attrs }">
@@ -16,10 +16,8 @@
                 </v-btn>
               </template>
               <v-list>
-                <v-list-item>
-                  <v-list-item-title>Editar</v-list-item-title>
-                </v-list-item>
-                <v-list-item @click="remove(dispositivo['.key'])">
+                <dispositivos-edit :item="item" />
+                <v-list-item @click="remove(item['.key'])">
                   <v-list-item-title>Apagar</v-list-item-title>
                 </v-list-item>
               </v-list>

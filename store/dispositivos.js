@@ -10,14 +10,19 @@ export const actions = {
     return bindFirebaseRef('all', ref)
   }),
   addDispositivo: firebaseAction(function (context, dispositivo) {
-    const { id, nome, localKey } = dispositivo
     const ref = this.$fireDb.ref('dispositivos')
     return ref.push().set({
-      id,
-      nome,
+      ...dispositivo,
       status: false,
-      temp: 16,
-      local: localKey
+      temp: 16
+    })
+  }),
+  editDispositivo: firebaseAction(async function (content, payload) {
+    const { key, ...dispositivo } = payload
+    const ref = this.$fireDb.ref(`dispositivos/${key}`)
+
+    await ref.update({
+      ...dispositivo
     })
   }),
   deleteDispositivo: firebaseAction(async function (context, dispositivoKey) {

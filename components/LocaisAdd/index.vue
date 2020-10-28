@@ -4,11 +4,11 @@
       color="primary"
       dark
       class="mb-2"
-      @click="open"
+      @click="openDialog"
     >
       Novo Item
     </v-btn>
-    <modal-base v-show="modal" :modal="modal" :close="close">
+    <modal-base :show="dialog" @close="closeDialog">
       <template v-slot:header>
         <span class="headline">Novo Local</span>
       </template>
@@ -55,7 +55,7 @@
                 </v-col>
               </v-row>
               <v-row justify="end">
-                <v-btn color="black darken-1" text @click="close">
+                <v-btn color="black darken-1" text @click="closeDialog">
                   Cancel
                 </v-btn>
                 <v-btn color="blue darken-1" text type="submit">
@@ -79,15 +79,15 @@ export default {
     ModalBase
   },
   data: () => ({
-    modal: false,
-    local: {}
+    local: {},
+    dialog: false
   }),
   methods: {
-    open () {
-      this.modal = true
+    openDialog () {
+      this.dialog = true
     },
-    close () {
-      this.modal = false
+    closeDialog () {
+      this.dialog = false
       this.$refs.form.reset()
       this.local = {}
     },
@@ -98,7 +98,7 @@ export default {
 
           this.$store.dispatch('locais/addLocal', this.local)
             .then(() => {
-              this.close()
+              this.closeDialog()
             })
         })
     }
