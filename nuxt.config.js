@@ -1,6 +1,10 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  loading: {
+    color: 'blue',
+    height: '5px'
+  },
   /*
   ** Nuxt rendering mode
   ** See https://nuxtjs.org/api/configuration-mode
@@ -79,8 +83,28 @@ export default {
       measurementId: 'G-RG65LNDC1C'
     },
     services: {
-      auth: false, // Just as example. Can be any other service.
-      realtimeDb: true
+      realtimeDb: true,
+      auth: {
+        persistence: 'local', // default
+        initialize: {
+          // onAuthStateChangedMutation: 'auth/ON_AUTH_STATE_CHANGED_MUTATION'
+          onAuthStateChangedAction: 'auth/onAuthStateChangedAction'
+        },
+        ssr: false
+      }
+    }
+  },
+  pwa: {
+    meta: false,
+    icon: false,
+    workbox: {
+      importScripts: [
+        // ...
+        '/firebase-auth-sw.js'
+      ],
+      // by default the workbox module will not install the service worker in dev environment to avoid conflicts with HMR
+      // only set this true for testing and remember to always clear your browser cache in development
+      dev: false
     }
   },
   /*
