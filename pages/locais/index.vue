@@ -8,6 +8,9 @@
 import LocaisList from '~/components/LocaisList'
 
 export default {
+  name: 'LocaisDashboard',
+  layout: 'dashboard',
+  middleware: 'auth',
   components: {
     LocaisList
   }

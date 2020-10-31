@@ -1,34 +1,15 @@
 <template>
-  <v-container>
-    <v-row align="center">
-      <v-col cols="7" class="pa-0">
-        <v-autocomplete
-          item-value="id"
-          :item-text="(item) => {return `${item.id} - ${item.nome}`}"
-          :items="locais"
-          hide-no-data
-          hide-selected
-          outlined
-          placeholder="Filtrar por local"
-          clearable
-        />
-      </v-col>
-    </v-row>
-    <dispositivos-list />
-  </v-container>
+  <login />
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import Login from '~/pages/login'
 
 export default {
-  computed: {
-    ...mapState({
-      locais: state => state.locais.all
-    })
-  },
-  created () {
-    this.$store.dispatch('locais/getLocais')
+  name: 'Home',
+  middleware: 'guest',
+  components: {
+    Login
   }
 }
 </script>
