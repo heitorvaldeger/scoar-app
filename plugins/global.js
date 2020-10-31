@@ -14,3 +14,4 @@ extend('required', {
 
 Vue.component('ValidationObserver', ValidationObserver)
 Vue.component('ValidationProvider', ValidationProvider)
+Vue.config.devtools = true
