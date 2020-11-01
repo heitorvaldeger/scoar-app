@@ -5,8 +5,29 @@ export const state = () => ({
 export const actions = {
   async signIn (ctx, user) {
     const { email, password } = user
+    const usersRef = this.$fireDb.ref('users')
 
-    return await this.$fireAuth.signInWithEmailAndPassword(email, password)
+    await usersRef.orderByChild('email').equalTo(email).once('value', (snaps) => {
+      if (!snaps.val()) {
+        return
+      }
+      snaps.forEach(async (snap) => {
+        const active = snap.val().active
+        if (active) {
+          return await this.$fireAuth.signInWithEmailAndPassword(email, password)
+        }
+
+        return await this.$fireAuth.createUserWithEmailAndPassword(email, password)
+          .then(() => {
+            const userRef = this.$fireDb.ref(`users/${snap.key}`)
+            userRef.update({
+              active: true
+            })
+          })
+      })
+    })
+    // const snap = await ref.once('value', snap => snap)
+    // return snap.val()
   },
   async signOut (ctx) {
     return await this.$fireAuth.signOut()
