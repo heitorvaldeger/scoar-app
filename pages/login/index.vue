@@ -50,7 +50,10 @@
           </v-card-text>
           <v-card-actions>
             <v-row>
-              <v-col class="text-center">
+              <v-col class="text-center" cols="12">
+                <reset-password />
+              </v-col>
+              <v-col class="text-center" cols="12">
                 <v-btn
                   dark
                   color="dark darken-1"
@@ -71,10 +74,14 @@
 
 <script>
 import { mapState } from 'vuex'
+import ResetPassword from '~/components/ResetPassword'
 
 export default {
   name: 'Login',
   middleware: 'guest',
+  components: {
+    ResetPassword
+  },
   data: () => ({
     user: {},
     loading: false

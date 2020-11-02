@@ -13,16 +13,21 @@ export const actions = {
     const res = await this.$fire.functions.httpsCallable('createNewUser')(user)
     commit('ADD_USER', res.data)
   }),
-  editUser: firebaseAction(async function (context, payload) {
-    const { key, ...user } = payload
-    const ref = this.$fire.database.ref(`users/${key}`)
-    await ref.update({
-      ...user
-    })
-  }),
   deleteUser: firebaseAction(async function ({ commit }, uid) {
     const res = await this.$fire.functions.httpsCallable('deleteUser')(uid)
     commit('DELETE_USER', res.data.uid)
+  }),
+  updateEmail: firebaseAction(async function (ctx, user) {
+    const currentUser = this.$fire.auth.currentUser
+
+    const credentials = this.$fireModule.auth.EmailAuthProvider.credential(
+      user.email,
+      user.password
+    )
+    return await currentUser.reauthenticateWithCredential(credentials)
+      .then(() => {
+        return currentUser.updateEmail(user.novo_email)
+      })
   })
 }
 

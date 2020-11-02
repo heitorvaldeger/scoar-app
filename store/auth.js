@@ -7,32 +7,12 @@ export const actions = {
     const { email, password } = user
 
     return await this.$fire.auth.signInWithEmailAndPassword(email, password)
-    // const usersRef = this.$fireDb.ref('users')
-
-    // await usersRef.orderByChild('email').equalTo(email).once('value', (snaps) => {
-    //   if (!snaps.val()) {
-    //     return
-    //   }
-    //   snaps.forEach(async (snap) => {
-    //     const active = snap.val().active
-    //     if (active) {
-    //       return await this.$fire.auth.signInWithEmailAndPassword(email, password)
-    //     }
-
-    //     return await this.$fire.auth.createUserWithEmailAndPassword(email, password)
-    //       .then(() => {
-    //         const userRef = this.$fireDb.ref(`users/${snap.key}`)
-    //         userRef.update({
-    //           active: true
-    //         })
-    //       })
-    //   })
-    // })
-    // const snap = await ref.once('value', snap => snap)
-    // return snap.val()
   },
   async signOut (ctx) {
     return await this.$fire.auth.signOut()
+  },
+  async resetPassword (ctx, email) {
+    return await this.$fire.auth.sendPasswordResetEmail(email)
   },
   async onAuthStateChangedAction ({ commit }, { authUser, claims }) {
     if (!authUser) {

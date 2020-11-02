@@ -30,18 +30,15 @@
         </template>
 
         <v-list>
-          <v-list-item
-            v-for="(item, index) in items"
-            :key="index"
-            @click="item.click"
-          >
+          <v-list-item @click="signOut">
             <v-list-item-icon>
-              <v-icon v-text="item.icon" />
+              <v-icon v-text="'mdi-logout'" />
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item-title>Sair</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <user-update-email />
         </v-list>
       </v-menu>
     </v-app-bar>
@@ -56,17 +53,16 @@
 
 <script>
 import { mapState } from 'vuex'
+import UserUpdateEmail from '~/components/UserUpdateEmail'
 
 export default {
-  layout: 'dashboard',
+  layout: 'Dashboard',
+  components: {
+    UserUpdateEmail
+  },
   data () {
     return ({
       items: [
-        {
-          title: 'Perfil',
-          icon: 'mdi-account-circle',
-          click: this.profile
-        },
         {
           title: 'Sair',
           icon: 'mdi-logout',
@@ -87,9 +83,6 @@ export default {
           this.$store.commit('auth/CLEAR_USER')
           this.$router.replace('/')
         })
-    },
-    profile () {
-
     }
   }
 }
