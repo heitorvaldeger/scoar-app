@@ -6,11 +6,11 @@ export const state = () => ({
 
 export const actions = {
   getDispositivos: firebaseAction(function ({ bindFirebaseRef }) {
-    const ref = this.$fireDb.ref('dispositivos')
+    const ref = this.$fire.database.ref('dispositivos')
     return bindFirebaseRef('all', ref)
   }),
   addDispositivo: firebaseAction(function (context, dispositivo) {
-    const ref = this.$fireDb.ref('dispositivos')
+    const ref = this.$fire.database.ref('dispositivos')
     return ref.push().set({
       ...dispositivo,
       status: false,
@@ -19,18 +19,18 @@ export const actions = {
   }),
   editDispositivo: firebaseAction(async function (content, payload) {
     const { key, ...dispositivo } = payload
-    const ref = this.$fireDb.ref(`dispositivos/${key}`)
+    const ref = this.$fire.database.ref(`dispositivos/${key}`)
 
     await ref.update({
       ...dispositivo
     })
   }),
   deleteDispositivo: firebaseAction(async function (context, dispositivoKey) {
-    const ref = this.$fireDb.ref(`dispositivos/${dispositivoKey}`)
+    const ref = this.$fire.database.ref(`dispositivos/${dispositivoKey}`)
     await ref.remove()
   }),
   incrementTemp: firebaseAction(async function (context, dispositivoKey) {
-    const ref = this.$fireDb.ref(`dispositivos/${dispositivoKey}`)
+    const ref = this.$fire.database.ref(`dispositivos/${dispositivoKey}`)
     return await ref.transaction(function (dispositivo) {
       dispositivo.temp++
 
@@ -38,7 +38,7 @@ export const actions = {
     })
   }),
   decrementTemp: firebaseAction(async function (context, dispositivoKey) {
-    const ref = this.$fireDb.ref(`dispositivos/${dispositivoKey}`)
+    const ref = this.$fire.database.ref(`dispositivos/${dispositivoKey}`)
     return await ref.transaction(function (dispositivo) {
       dispositivo.temp--
 
@@ -46,7 +46,7 @@ export const actions = {
     })
   }),
   setStatus: firebaseAction(async function (context, dispositivoKey) {
-    const ref = this.$fireDb.ref(`dispositivos/${dispositivoKey}`)
+    const ref = this.$fire.database.ref(`dispositivos/${dispositivoKey}`)
     return await ref.transaction(function (dispositivo) {
       dispositivo.status = !dispositivo.status
 

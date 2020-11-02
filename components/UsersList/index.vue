@@ -16,22 +16,17 @@
           vertical
         />
         <v-spacer />
+        <v-btn icon class="mx-2" @click="updateList">
+          <v-icon>
+            mdi-reload
+          </v-icon>
+        </v-btn>
         <users-add />
       </v-toolbar>
     </template>
 
-    <template v-slot:item.active="{ item }">
-      <v-chip
-        :color="item.active ? 'success' : 'error'"
-        dark
-        small
-      >
-        {{ item.active ? 'Ativo' : 'Não Ativo' }}
-      </v-chip>
-    </template>
-
     <template v-slot:item.actions="{ item }">
-      <v-btn icon @click="remove(item['.key'])">
+      <v-btn icon @click="remove(item.uid)">
         <v-icon small>
           mdi-delete
         </v-icon>
@@ -56,9 +51,8 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Nome do Usuário', value: 'nome', align: 'center' },
+      { text: 'Nome do Usuário', value: 'displayName', align: 'center' },
       { text: 'Email do Usuário', value: 'email', align: 'center' },
-      { text: 'Estado da Conta', value: 'active', align: 'center' },
       { text: 'Actions', value: 'actions', sortable: false, align: 'center' }
     ]
   }),
@@ -71,10 +65,13 @@ export default {
     this.$store.dispatch('users/getUsers')
   },
   methods: {
-    remove (itemKey) {
+    updateList () {
+      this.$store.dispatch('users/getUsers')
+    },
+    remove (uid) {
       const conf = confirm('Deseja realmente excluir esse usuário')
       if (conf) {
-        this.$store.dispatch('users/deleteUser', itemKey)
+        this.$store.dispatch('users/deleteUser', uid)
       }
     }
   }

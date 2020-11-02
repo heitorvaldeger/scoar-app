@@ -1,10 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  loading: {
-    color: 'blue',
-    height: '5px'
-  },
   /*
   ** Nuxt rendering mode
   ** See https://nuxtjs.org/api/configuration-mode
@@ -66,7 +62,8 @@ export default {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt/content
     '@nuxt/content',
-    '@nuxtjs/firebase'
+    '@nuxtjs/firebase',
+    '@nuxtjs/axios'
   ],
 
   firebase: {
@@ -83,7 +80,12 @@ export default {
       measurementId: 'G-RG65LNDC1C'
     },
     services: {
-      realtimeDb: true,
+      database: true,
+      functions: {
+        location: 'us-central1',
+        emulatorPort: 5001,
+        emulatorHost: 'http://localhost'
+      },
       auth: {
         persistence: 'local', // default
         initialize: {

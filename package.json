@@ -14,9 +14,10 @@
   },
   "dependencies": {
     "@nuxt/content": "^1.5.0",
-    "@nuxtjs/firebase": "^6.1.1",
+    "@nuxtjs/axios": "^5.12.2",
+    "@nuxtjs/firebase": "^7.0.0",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
-    "firebase": "^7.22.0",
+    "firebase": "^8.0.0",
     "firebase-admin": "^9.3.0",
     "nuxt": "^2.14.0",
     "portal-vue": "^2.1.7",
