@@ -1,15 +1,14 @@
 <template>
   <v-container>
     <v-row align="center">
-      <v-col cols="7" class="pa-0">
+      <v-col cols="7">
         <v-autocomplete
           item-value="id"
           :item-text="(item) => {return `${item.id} - ${item.nome}`}"
           :items="locais"
           hide-no-data
           hide-selected
-          outlined
-          placeholder="Filtrar por local"
+          label="Filtrar por local"
           clearable
         />
       </v-col>
