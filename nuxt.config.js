@@ -81,11 +81,11 @@ export default {
     },
     services: {
       database: true,
-      functions: {
+      functions: (process.env.NODE_ENV !== 'production') ? {
         location: 'us-central1',
         emulatorPort: 5001,
         emulatorHost: 'http://localhost'
-      },
+      } : true,
       auth: {
         persistence: 'local', // default
         initialize: {
