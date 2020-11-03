@@ -1,16 +1,65 @@
 <template>
-  <v-col cols="4">
-    <dispositivos-item />
-  </v-col>
+  <div>
+    <dispositivos-add />
+    <v-row>
+      <v-col v-for="(item, index) in dispositivos" :key="index" cols="auto">
+        <dispositivos-item :item="item">
+          <template v-slot:menu>
+            <v-menu offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  icon
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <v-icon>mdi-menu</v-icon>
+                </v-btn>
+              </template>
+              <v-list>
+                <dispositivos-edit :item="item" />
+                <v-list-item @click="remove(item['.key'])">
+                  <v-list-item-title>Apagar</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </template>
+        </dispositivos-item>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
-import DispositivosItem from '~/components/DispositivosItem'
+import { mapState } from 'vuex'
 
 export default {
   name: 'DispositivosList',
-  components: {
-    DispositivosItem
+  computed: {
+    ...mapState({
+      dispositivos: state => state.dispositivos.all
+    })
+  },
+  created () {
+    this.$store.dispatch('dispositivos/getDispositivos')
+  },
+  methods: {
+    remove (dispositivoKey) {
+      this.$store.dispatch('dispositivos/deleteDispositivo', dispositivoKey)
+        .then(() => {
+          this.$notify({
+            type: 'success',
+            title: 'Objeto removido com sucesso',
+            closeOnClick: true
+          })
+        })
+        .catch((err) => {
+          this.$notify({
+            type: 'error',
+            title: err.message,
+            closeOnClick: true
+          })
+        })
+    }
   }
 }
 </script>

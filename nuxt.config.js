@@ -61,8 +61,54 @@ export default {
   modules: [
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt/content
-    '@nuxt/content'
+    '@nuxt/content',
+    '@nuxtjs/firebase',
+    '@nuxtjs/axios'
   ],
+
+  firebase: {
+    config: {
+      apiKey: 'AIzaSyDi7FTJplxdcfOjRdkq4in0MsA-MSRLULc',
+      authDomain: 'scoar-app.firebaseapp.com',
+      databaseURL: (process.env.NODE_ENV === 'production')
+        ? 'https://scoar-app.firebaseio.com'
+        : 'http://localhost:9000?ns=scoar-app',
+      projectId: 'scoar-app',
+      storageBucket: 'scoar-app.appspot.com',
+      messagingSenderId: '863908883910',
+      appId: '1:863908883910:web:809f00cd5b6a123c6c16c7',
+      measurementId: 'G-RG65LNDC1C'
+    },
+    services: {
+      database: true,
+      functions: {
+        location: 'us-central1',
+        emulatorPort: 5001,
+        emulatorHost: 'http://localhost'
+      },
+      auth: {
+        persistence: 'local', // default
+        initialize: {
+          // onAuthStateChangedMutation: 'auth/ON_AUTH_STATE_CHANGED_MUTATION'
+          onAuthStateChangedAction: 'auth/onAuthStateChangedAction'
+        },
+        ssr: false
+      }
+    }
+  },
+  pwa: {
+    meta: false,
+    icon: false,
+    workbox: {
+      importScripts: [
+        // ...
+        '/firebase-auth-sw.js'
+      ],
+      // by default the workbox module will not install the service worker in dev environment to avoid conflicts with HMR
+      // only set this true for testing and remember to always clear your browser cache in development
+      dev: false
+    }
+  },
   /*
   ** Content module configuration
   ** See https://content.nuxtjs.org/configuration

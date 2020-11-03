@@ -1,18 +1,11 @@
 <template>
   <v-app dark>
-    <v-app-bar
-      fixed
-      app
-      color="white"
-      height="60"
-    >
-      <img src="~/assets/images/ifrn-logo.png" width="150">
-    </v-app-bar>
     <v-main>
-      <v-container fluid>
+      <v-container fluid class="fill-height">
         <nuxt />
       </v-container>
     </v-main>
+    <notifications position="bottom center" />
   </v-app>
 </template>
 
