@@ -26,6 +26,7 @@
                       <div>Tipo de Dispositivo</div>
                     </template>
                     <v-radio
+                      color="black darken-1"
                       class="mt-5"
                       label="Ar Condicionado"
                       value="Ar Condicionado"
@@ -40,6 +41,7 @@
                       v-model="dispositivo.id"
                       label="ID do dispositivo"
                       hint="Ex.: AC01, AC02"
+                      color="black darken-1"
                       required
                       :error-messages="errors"
                     />
@@ -52,6 +54,7 @@
                     <v-autocomplete
                       v-model="dispositivo.local"
                       placeholder="Local do dispositivo"
+                      color="black darken-1"
                       required
                       :item-value="(item) => item['.key']"
                       :item-text="(item) => {return `${item.id} - ${item.nome}`}"
@@ -65,7 +68,7 @@
                 <v-btn color="black darken-1" text @click="closeDialog">
                   Cancel
                 </v-btn>
-                <v-btn dark color="blue darken-1" depressed type="submit">
+                <v-btn dark color="blue darken-1" type="submit" :loading="loading">
                   Save
                 </v-btn>
               </v-row>
@@ -89,7 +92,8 @@ export default {
   data: () => ({
     dispositivo: {},
     typeGroup: 'Ar Condicionado',
-    dialog: false
+    dialog: false,
+    loading: false
   }),
   computed: {
     ...mapState({
@@ -115,7 +119,22 @@ export default {
             tipo: this.typeGroup
           })
             .then(() => {
+              this.$notify({
+                type: 'success',
+                title: 'Dispositivo adicionado com sucesso',
+                closeOnClick: true
+              })
+            })
+            .catch((err) => {
+              this.$notify({
+                type: 'error',
+                title: err.message,
+                closeOnClick: true
+              })
+            })
+            .finally(() => {
               this.closeDialog()
+              this.loading = false
             })
         })
     }

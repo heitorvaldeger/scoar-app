@@ -20,13 +20,10 @@
     </template>
     <template v-slot:item.actions="{ item }">
       <locais-edit :item="item" />
-      <v-btn small depressed outlined color="error" @click="remove(item['.key'])">
-        Apagar
-      </v-btn>
-    </template>
-    <template v-slot:no-data>
-      <v-btn color="primary">
-        Reset
+      <v-btn icon @click="remove(item['.key'])">
+        <v-icon small>
+          mdi-delete
+        </v-icon>
       </v-btn>
     </template>
   </v-data-table>
@@ -67,6 +64,20 @@ export default {
   methods: {
     remove (itemKey) {
       this.$store.dispatch('locais/deleteLocal', itemKey)
+        .then(() => {
+          this.$notify({
+            type: 'success',
+            title: 'Objeto removido com sucesso',
+            closeOnClick: true
+          })
+        })
+        .catch((err) => {
+          this.$notify({
+            type: 'error',
+            title: err.message,
+            closeOnClick: true
+          })
+        })
     }
   }
 }

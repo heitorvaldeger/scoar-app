@@ -48,6 +48,7 @@
       </v-container>
     </v-main>
     <portal-target name="modal" />
+    <notifications position="bottom center" />
   </v-app>
 </template>
 

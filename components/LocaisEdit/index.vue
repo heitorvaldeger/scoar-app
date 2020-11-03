@@ -1,7 +1,7 @@
 <template>
   <span>
-    <v-btn small depressed outlined @click="openDialog">
-      Editar
+    <v-btn icon @click="openDialog">
+      <v-icon small>mdi-pencil</v-icon>
     </v-btn>
     <modal-base :show="dialog" @close="closeDialog">
       <template v-slot:header>
@@ -17,6 +17,7 @@
                   <ValidationProvider v-slot="{ errors }" name="ID" rules="required">
                     <v-text-field
                       v-model="local.id"
+                      color="black"
                       label="ID do Local"
                       hint="Ex.: C22, A28"
                       :error-messages="errors"
@@ -29,6 +30,7 @@
                   <ValidationProvider v-slot="{ errors }" name="ID" rules="required">
                     <v-text-field
                       v-model="local.nome"
+                      color="black"
                       label="Nome do Local"
                       hint="Ex.: Lab de Informática, Lab de Eletrônica"
                       :error-messages="errors"
@@ -40,6 +42,7 @@
                 <v-col cols="12">
                   <v-text-field
                     v-model="local.apelidos"
+                    color="black"
                     label="Apelidos"
                     hint="Ex.: MSI 4º Ano, Alimentos 1º Ano"
                   />
@@ -49,7 +52,7 @@
                 <v-btn color="black darken-1" text @click="closeDialog">
                   Cancel
                 </v-btn>
-                <v-btn color="blue darken-1" text type="submit">
+                <v-btn color="blue darken-1" dark type="submit" :loading="loading">
                   Save
                 </v-btn>
               </v-row>
@@ -77,7 +80,8 @@ export default {
   },
   data: () => ({
     local: {},
-    dialog: false
+    dialog: false,
+    loading: false
   }),
   mounted () {
     this.local = Object.assign({}, this.item)
@@ -97,9 +101,25 @@ export default {
         .then((success) => {
           if (!success) { return }
 
+          this.loading = true
           this.$store.dispatch('locais/editLocal', this.local)
             .then(() => {
+              this.$notify({
+                type: 'success',
+                title: 'Local editado com sucesso',
+                closeOnClick: true
+              })
+            })
+            .catch((err) => {
+              this.$notify({
+                type: 'error',
+                title: err.message,
+                closeOnClick: true
+              })
+            })
+            .finally(() => {
               this.closeDialog()
+              this.loading = false
             })
         })
     }

@@ -35,7 +35,7 @@
               </v-row>
               <v-row>
                 <v-col cols="12">
-                  <ValidationProvider v-slot="{ errors }" name="Nome" rules="required">
+                  <ValidationProvider v-slot="{ errors }" name="Email" rules="required">
                     <v-text-field
                       v-model="user.email"
                       label="Email do usuário"
@@ -49,7 +49,7 @@
                 <v-btn color="black darken-1" text @click="closeDialog">
                   Cancel
                 </v-btn>
-                <v-btn color="blue darken-1" text type="submit">
+                <v-btn color="blue darken-1" dark type="submit" :loading="loading">
                   Save
                 </v-btn>
               </v-row>
@@ -71,7 +71,8 @@ export default {
   },
   data: () => ({
     user: {},
-    dialog: false
+    dialog: false,
+    loading: false
   }),
   methods: {
     openDialog () {
@@ -87,8 +88,24 @@ export default {
         .then((success) => {
           if (!success) { return }
 
+          this.loading = true
           this.$store.dispatch('users/addUser', this.user)
             .then(() => {
+              this.$notify({
+                type: 'success',
+                title: 'Usuário criado com sucesso',
+                closeOnClick: true
+              })
+            })
+            .catch((err) => {
+              this.$notify({
+                type: 'error',
+                title: err.message,
+                closeOnClick: true
+              })
+            })
+            .finally(() => {
+              this.loading = false
               this.closeDialog()
             })
         })

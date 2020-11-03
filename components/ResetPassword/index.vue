@@ -30,6 +30,7 @@
                       hint="Digite o seu email para recuperar a senha"
                       required
                       color="black"
+                      type="email"
                       :error-messages="errors"
                     />
                   </ValidationProvider>
@@ -39,8 +40,8 @@
                 <v-btn color="black darken-1" text @click="closeDialog">
                   Cancel
                 </v-btn>
-                <v-btn color="blue darken-1" text type="submit">
-                  Save
+                <v-btn color="black darken-1" dark type="submit" :loading="loading">
+                  Enviar
                 </v-btn>
               </v-row>
             </v-form>
@@ -61,7 +62,8 @@ export default {
   },
   data: () => ({
     email: '',
-    dialog: false
+    dialog: false,
+    loading: false
   }),
   methods: {
     openDialog () {
@@ -77,8 +79,24 @@ export default {
         .then((success) => {
           if (!success) { return }
 
+          this.loading = true
           this.$store.dispatch('auth/resetPassword', this.email)
             .then(() => {
+              this.$notify({
+                type: 'success',
+                title: 'Email enviado com sucesso',
+                closeOnClick: true
+              })
+            })
+            .catch((err) => {
+              this.$notify({
+                type: 'error',
+                title: err.message,
+                closeOnClick: true
+              })
+            })
+            .finally(() => {
+              this.loading = false
               this.closeDialog()
             })
         })

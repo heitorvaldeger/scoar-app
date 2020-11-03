@@ -45,6 +45,20 @@ export default {
   methods: {
     remove (dispositivoKey) {
       this.$store.dispatch('dispositivos/deleteDispositivo', dispositivoKey)
+        .then(() => {
+          this.$notify({
+            type: 'success',
+            title: 'Objeto removido com sucesso',
+            closeOnClick: true
+          })
+        })
+        .catch((err) => {
+          this.$notify({
+            type: 'error',
+            title: err.message,
+            closeOnClick: true
+          })
+        })
     }
   }
 }

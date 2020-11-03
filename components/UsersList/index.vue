@@ -72,6 +72,20 @@ export default {
       const conf = confirm('Deseja realmente excluir esse usuário')
       if (conf) {
         this.$store.dispatch('users/deleteUser', uid)
+          .then(() => {
+            this.$notify({
+              type: 'success',
+              title: 'Usuário removido com sucesso',
+              closeOnClick: true
+            })
+          })
+          .catch((err) => {
+            this.$notify({
+              type: 'error',
+              title: err.message,
+              closeOnClick: true
+            })
+          })
       }
     }
   }

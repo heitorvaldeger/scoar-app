@@ -66,7 +66,7 @@
                   <v-btn color="black darken-1" text @click="closeDialog">
                     Cancel
                   </v-btn>
-                  <v-btn color="blue darken-1" text type="submit">
+                  <v-btn color="blue darken-1" dark type="submit" :loading="loading">
                     Save
                   </v-btn>
                 </v-row>
@@ -91,7 +91,8 @@ export default {
     email: '',
     novo_email: '',
     password: '',
-    dialog: false
+    dialog: false,
+    loading: false
   }),
   methods: {
     openDialog () {
@@ -107,13 +108,29 @@ export default {
         .then((success) => {
           if (!success) { return }
 
+          this.loading = true
           this.$store.dispatch('users/updateEmail', {
             email: this.email,
             password: this.password,
             novo_email: this.novo_email
           })
             .then(() => {
+              this.$notify({
+                type: 'success',
+                title: 'Email atualizado com sucesso',
+                closeOnClick: true
+              })
+            })
+            .catch((err) => {
+              this.$notify({
+                type: 'error',
+                title: err.message,
+                closeOnClick: true
+              })
+            })
+            .finally(() => {
               this.closeDialog()
+              this.loading = false
             })
         })
     }

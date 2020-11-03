@@ -24,6 +24,7 @@
                       <v-text-field
                         v-model="user.email"
                         label="Email"
+                        type="email"
                         required
                         :error-messages="errors"
                         color="dark"
@@ -59,6 +60,7 @@
                   color="dark darken-1"
                   depressed
                   type="submit"
+                  :loading="loading"
                   @click="login"
                 >
                   Entrar
@@ -100,10 +102,24 @@ export default {
   },
   methods: {
     login () {
-      this.loading = true
-      this.$store.dispatch('auth/signIn', this.user)
-        .finally(() => {
-          this.loading = false
+      this.$refs.form.validate()
+        .then((success) => {
+          if (!success) {
+            return
+          }
+
+          this.loading = true
+          this.$store.dispatch('auth/signIn', this.user)
+            .catch((err) => {
+              this.$notify({
+                type: 'error',
+                title: err.message,
+                closeOnClick: true
+              })
+            })
+            .finally(() => {
+              this.loading = false
+            })
         })
     }
   }

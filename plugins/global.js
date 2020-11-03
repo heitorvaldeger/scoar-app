@@ -2,8 +2,10 @@ import Vue from 'vue'
 import { required } from 'vee-validate/dist/rules'
 import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
 import PortalVue from 'portal-vue'
+import Notifications from 'vue-notification'
 
 Vue.use(PortalVue)
+Vue.use(Notifications)
 
 setInteractionMode('eager')
 
