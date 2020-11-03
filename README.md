@@ -1,20 +1,12 @@
-# scoar-app
+# Projeto Integrador (scoar-app)
 
-## Build Setup
+## O problema
+O problema deste trabalho busca criar uma solução para automatizar o controle de Ar Condicionados no IFRN Campus Currais Novos, trabalhando de maneira conjunta com o uso de controles remotos para a sua manipulação.
 
-```bash
-# install dependencies
-$ npm install
+## Temática abordada
+- IoT (Internet of Things)
+- Sistemas web
+- Desenvolvimento de aplicativo
 
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## Objetivo do projeto
+Criar um Sistema de Controle Online de Ar Condicionado (SCOAR) fornecendo um ambiente administrativo para gerenciar ar-condicionados do IFRN Campus Currais Novos e permitir a manipulação de variáveis como a temperatura e o seu estado.
