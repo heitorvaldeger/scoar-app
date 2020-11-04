@@ -21,14 +21,14 @@ export const actions = {
       return
     }
     const { uid, email, emailVerified, displayName, idToken } = authUser
-
+    console.log(claims)
     commit('SET_USER', {
       uid,
       email,
       emailVerified,
       displayName,
       idToken,
-      isAdmin: claims.custom_claim
+      isAdmin: claims.admin
     })
   }
 }

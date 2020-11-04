@@ -35,14 +35,22 @@
               </v-row>
               <v-row>
                 <v-col cols="12">
-                  <ValidationProvider v-slot="{ errors }" name="Email" rules="required">
+                  <ValidationProvider v-slot="{ errors }" name="Email do Usuário" rules="required">
                     <v-text-field
                       v-model="user.email"
-                      label="Email do usuário"
+                      label="Email do Usuário"
                       color="black"
                       :error-messages="errors"
                     />
                   </ValidationProvider>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12">
+                  <v-checkbox
+                    v-model="user.admin"
+                    label="Administrador"
+                  />
                 </v-col>
               </v-row>
               <v-row justify="end">
