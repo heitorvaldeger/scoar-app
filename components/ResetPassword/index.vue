@@ -1,17 +1,17 @@
 <template>
   <span>
     <v-btn
-      class="mb-2"
+      class="mb-2 btn-password"
       text
       link
       small
       @click="openDialog"
     >
-      Esqueceu sua senha ?
+      Esqueceu sua senha ou deseja atualizar?
     </v-btn>
     <modal-base :show="dialog" @close="closeDialog">
       <template v-slot:header>
-        <span class="headline">Esqueceu sua senha ?</span>
+        <span class="headline">Atualizar senha</span>
       </template>
 
       <template v-slot:content>
@@ -104,3 +104,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .btn-password {
+    text-transform: none;
+  }
+</style>

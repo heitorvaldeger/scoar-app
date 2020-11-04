@@ -101,7 +101,7 @@ export default {
     closeDialog () {
       this.dialog = false
       this.$refs.form.reset()
-      this.email = ''
+      this.email = this.novo_email = this.password = ''
     },
     onSubmit () {
       this.$refs.form.validate()
