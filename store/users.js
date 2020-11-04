@@ -14,7 +14,7 @@ export const actions = {
     commit('ADD_USER', res.data)
   }),
   deleteUser: firebaseAction(async function ({ commit }, uid) {
-    const res = await this.$fire.functions.httpsCallable('deleteUser')(uid)
+    const res = await this.$fire.functions.httpsCallable('deleteUser')({ uid })
     commit('DELETE_USER', res.data.uid)
   }),
   updateEmail: firebaseAction(async function (ctx, user) {
