@@ -5,10 +5,6 @@ admin.initializeApp()
 // Create and Deploy Your First Cloud Functions
 // https://firebase.google.com/docs/functions/write-firebase-functions
 
-exports.helloWorld = functions.https.onRequest((request, res) => {
-  res.send('Hello from Heitor!')
-})
-
 exports.createNewUser = functions.https.onCall((data, context) => {
   return admin.auth().createUser({
     displayName: data.nome,
@@ -17,6 +13,12 @@ exports.createNewUser = functions.https.onCall((data, context) => {
     password: '12345678'
   })
     .then((user) => {
+      if (data.admin) {
+        return admin.auth().setCustomUserClaims(user.uid, { admin: true })
+          .then(() => {
+            return user
+          })
+      }
       return user
     })
     .catch((err) => {
