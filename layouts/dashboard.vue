@@ -91,13 +91,9 @@
 
 <script>
 import { mapState } from 'vuex'
-// import UserUpdateEmail from '~/components/UserUpdateEmail'
 
 export default {
   layout: 'Dashboard',
-  components: {
-    // UserUpdateEmail
-  },
   data () {
     return ({
       // drawer: false
