@@ -1,67 +1,62 @@
 <template>
-  <span>
-    <v-btn icon @click="openDialog">
-      <v-icon small>mdi-pencil</v-icon>
-    </v-btn>
-    <modal-base :show="dialog" @close="closeDialog">
-      <template v-slot:header>
-        <span class="headline">Editar Local</span>
-      </template>
+  <modal-base @close="closeDialog">
+    <template v-slot:header>
+      <span class="headline">Editar Local</span>
+    </template>
 
-      <template v-slot:content>
-        <v-container>
-          <ValidationObserver ref="form">
-            <v-form autocomplete="off" @submit.prevent="onSubmit">
-              <v-row>
-                <v-col cols="12">
-                  <ValidationProvider v-slot="{ errors }" name="ID" rules="required">
-                    <v-text-field
-                      v-model="local.id"
-                      color="black"
-                      label="ID do Local"
-                      hint="Ex.: C22, A28"
-                      :error-messages="errors"
-                    />
-                  </ValidationProvider>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col cols="12">
-                  <ValidationProvider v-slot="{ errors }" name="ID" rules="required">
-                    <v-text-field
-                      v-model="local.nome"
-                      color="black"
-                      label="Nome do Local"
-                      hint="Ex.: Lab de Informática, Lab de Eletrônica"
-                      :error-messages="errors"
-                    />
-                  </ValidationProvider>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col cols="12">
+    <template v-slot:content>
+      <v-container>
+        <ValidationObserver ref="form">
+          <v-form autocomplete="off" @submit.prevent="onSubmit">
+            <v-row>
+              <v-col cols="12">
+                <ValidationProvider v-slot="{ errors }" name="ID" rules="required">
                   <v-text-field
-                    v-model="local.apelidos"
+                    v-model="local.id"
                     color="black"
-                    label="Apelidos"
-                    hint="Ex.: MSI 4º Ano, Alimentos 1º Ano"
+                    label="ID do Local"
+                    hint="Ex.: C22, A28"
+                    :error-messages="errors"
                   />
-                </v-col>
-              </v-row>
-              <v-row justify="end">
-                <v-btn color="black darken-1" text @click="closeDialog">
-                  Cancel
-                </v-btn>
-                <v-btn color="blue darken-1" dark type="submit" :loading="loading">
-                  Save
-                </v-btn>
-              </v-row>
-            </v-form>
-          </ValidationObserver>
-        </v-container>
-      </template>
-    </modal-base>
-  </span>
+                </ValidationProvider>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12">
+                <ValidationProvider v-slot="{ errors }" name="ID" rules="required">
+                  <v-text-field
+                    v-model="local.nome"
+                    color="black"
+                    label="Nome do Local"
+                    hint="Ex.: Lab de Informática, Lab de Eletrônica"
+                    :error-messages="errors"
+                  />
+                </ValidationProvider>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="local.apelidos"
+                  color="black"
+                  label="Apelidos"
+                  hint="Ex.: MSI 4º Ano, Alimentos 1º Ano"
+                />
+              </v-col>
+            </v-row>
+            <v-row justify="end">
+              <v-btn color="black darken-1" text @click="closeDialog">
+                Cancel
+              </v-btn>
+              <v-btn color="blue darken-1" dark type="submit" :loading="loading">
+                Save
+              </v-btn>
+            </v-row>
+          </v-form>
+        </ValidationObserver>
+      </v-container>
+    </template>
+  </modal-base>
 </template>
 
 <script>
@@ -73,26 +68,22 @@ export default {
     ModalBase
   },
   props: {
-    item: {
+    data: {
       type: Object,
       default: () => ({})
     }
   },
   data: () => ({
     local: {},
-    dialog: false,
     loading: false
   }),
   mounted () {
-    this.local = Object.assign({}, this.item)
-    this.local.key = this.item['.key']
+    this.local = Object.assign({}, this.data)
+    this.local.key = this.data['.key']
   },
   methods: {
-    openDialog () {
-      this.dialog = true
-    },
     closeDialog () {
-      this.dialog = false
+      this.$store.commit('dialog/DIALOG_CLOSE')
       this.$refs.form.reset()
       this.local = {}
     },

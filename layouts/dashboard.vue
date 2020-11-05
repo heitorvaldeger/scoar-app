@@ -66,7 +66,14 @@
         </template>
 
         <v-list>
-          <user-update-email />
+          <v-list-item @click="userUpdateEmail">
+            <v-list-item-icon>
+              <v-icon v-text="'mdi-account'" />
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Atualizar Email</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
           <v-list-item @click="signOut">
             <v-list-item-icon>
               <v-icon v-text="'mdi-logout'" />
@@ -84,24 +91,23 @@
         <nuxt />
       </v-container>
     </v-main>
-    <portal-target name="modal" />
+    <component :is="dialogName || null" :data="dialogData" />
     <notifications position="bottom center" />
   </v-app>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   layout: 'Dashboard',
-  data () {
-    return ({
-      // drawer: false
-    })
-  },
   computed: {
     ...mapState({
-      user: state => state.auth.user
+      user: state => state.auth.user,
+      dialogData: state => state.dialog.data
+    }),
+    ...mapGetters({
+      dialogName: 'dialog/COMPONENT_DIALOG'
     })
   },
   methods: {
@@ -111,6 +117,11 @@ export default {
           this.$store.commit('auth/CLEAR_USER')
           this.$router.replace('/')
         })
+    },
+    userUpdateEmail () {
+      this.$store.commit('dialog/DIALOG_OPEN', {
+        component: 'UserUpdateEmail'
+      })
     }
   }
 }

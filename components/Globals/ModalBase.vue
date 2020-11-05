@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="visible" max-width="500px" @click:outside="visible = false">
+  <v-dialog v-model="open" max-width="500px" @click:outside="close">
     <v-card>
       <v-card-title>
         <slot name="header" />
@@ -15,22 +15,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'ModalBase',
-  props: {
-    show: {
-      type: Boolean,
-      required: true
-    }
-  },
   computed: {
-    visible: {
-      get () {
-        return this.show
-      },
-      set (value) {
-        if (!value) { this.$emit('close') }
-      }
+    ...mapState({
+      open: state => state.dialog.open
+    })
+  },
+  methods: {
+    close () {
+      this.$emit('close')
     }
   }
 }

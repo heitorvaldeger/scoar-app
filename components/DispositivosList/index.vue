@@ -1,6 +1,12 @@
 <template>
-  <div>
-    <dispositivos-add />
+  <span>
+    <v-btn
+      color="gray"
+      dark
+      @click="dispositivoAdd"
+    >
+      Novo Dispositivo
+    </v-btn>
     <v-row>
       <v-col v-for="(item, index) in dispositivos" :key="index" cols="auto">
         <dispositivos-item :item="item">
@@ -16,7 +22,11 @@
                 </v-btn>
               </template>
               <v-list>
-                <dispositivos-edit :item="item" />
+                <v-list-item @click="dispositivosEdit(item)">
+                  <v-list-item-title>
+                    Editar
+                  </v-list-item-title>
+                </v-list-item>
                 <v-list-item @click="remove(item['.key'])">
                   <v-list-item-title>Apagar</v-list-item-title>
                 </v-list-item>
@@ -26,7 +36,7 @@
         </dispositivos-item>
       </v-col>
     </v-row>
-  </div>
+  </span>
 </template>
 
 <script>
@@ -43,6 +53,17 @@ export default {
     this.$store.dispatch('dispositivos/getDispositivos')
   },
   methods: {
+    dispositivoAdd () {
+      this.$store.commit('dialog/DIALOG_OPEN', {
+        component: 'DispositivosAdd'
+      })
+    },
+    dispositivosEdit (item) {
+      this.$store.commit('dialog/DIALOG_OPEN', {
+        component: 'DispositivosEdit',
+        data: item
+      })
+    },
     remove (dispositivoKey) {
       this.$store.dispatch('dispositivos/deleteDispositivo', dispositivoKey)
         .then(() => {
