@@ -21,7 +21,14 @@
             mdi-reload
           </v-icon>
         </v-btn>
-        <users-add />
+        <v-btn
+          color="primary"
+          dark
+          class="mb-2"
+          @click="userAdd"
+        >
+          Novo Usuário
+        </v-btn>
       </v-toolbar>
     </template>
 
@@ -42,13 +49,9 @@
 
 <script>
 import { mapState } from 'vuex'
-import UsersAdd from '~/components/UsersAdd'
 
 export default {
   name: 'UsersList',
-  components: {
-    UsersAdd
-  },
   data: () => ({
     headers: [
       { text: 'Nome do Usuário', value: 'displayName', align: 'center' },
@@ -65,6 +68,11 @@ export default {
     this.$store.dispatch('users/getUsers')
   },
   methods: {
+    userAdd () {
+      this.$store.commit('dialog/DIALOG_OPEN', {
+        component: 'UsersAdd'
+      })
+    },
     updateList () {
       this.$store.dispatch('users/getUsers')
     },

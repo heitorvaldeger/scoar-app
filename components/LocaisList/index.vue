@@ -15,11 +15,22 @@
           vertical
         />
         <v-spacer />
-        <locais-add />
+        <v-btn
+          color="black darken-1"
+          dark
+          class="mb-2"
+          @click="locaisAdd"
+        >
+          Novo Item
+        </v-btn>
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
-      <locais-edit :item="item" />
+      <v-btn icon @click="locaisEdit(item)">
+        <v-icon small>
+          mdi-pencil
+        </v-icon>
+      </v-btn>
       <v-btn icon @click="remove(item['.key'])">
         <v-icon small>
           mdi-delete
@@ -31,15 +42,9 @@
 
 <script>
 import { mapState } from 'vuex'
-import LocaisAdd from '~/components/LocaisAdd'
-import LocaisEdit from '~/components/LocaisEdit'
 
 export default {
   name: 'LocaisList',
-  components: {
-    LocaisAdd,
-    LocaisEdit
-  },
   data: () => ({
     headers: [
       {
@@ -62,6 +67,17 @@ export default {
     this.$store.dispatch('locais/getLocais')
   },
   methods: {
+    locaisAdd () {
+      this.$store.commit('dialog/DIALOG_OPEN', {
+        component: 'LocaisAdd'
+      })
+    },
+    locaisEdit (local) {
+      this.$store.commit('dialog/DIALOG_OPEN', {
+        component: 'LocaisEdit',
+        data: local
+      })
+    },
     remove (itemKey) {
       this.$store.dispatch('locais/deleteLocal', itemKey)
         .then(() => {

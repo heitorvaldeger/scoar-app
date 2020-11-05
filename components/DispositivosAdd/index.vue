@@ -1,13 +1,6 @@
 <template>
-  <div>
-    <v-btn
-      color="gray"
-      dark
-      @click="openDialog"
-    >
-      Novo Dispositivo
-    </v-btn>
-    <modal-base :show="dialog" @close="closeDialog">
+  <span>
+    <modal-base @close="closeDialog">
       <template v-slot:header>
         <span class="headline">Novo Dispositivo</span>
       </template>
@@ -77,7 +70,7 @@
         </v-container>
       </template>
     </modal-base>
-  </div>
+  </span>
 </template>
 
 <script>
@@ -92,7 +85,6 @@ export default {
   data: () => ({
     dispositivo: {},
     typeGroup: 'Ar Condicionado',
-    dialog: false,
     loading: false
   }),
   computed: {
@@ -101,11 +93,8 @@ export default {
     })
   },
   methods: {
-    openDialog () {
-      this.dialog = true
-    },
     closeDialog () {
-      this.dialog = false
+      this.$store.commit('dialog/DIALOG_CLOSE')
       this.$refs.form.reset()
       this.dispositivo = {}
     },
