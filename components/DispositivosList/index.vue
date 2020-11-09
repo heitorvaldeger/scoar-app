@@ -2,6 +2,7 @@
   <span>
     <v-btn
       color="gray"
+      v-if="isAdmin"
       dark
       @click="dispositivoAdd"
     >
