@@ -2,6 +2,12 @@ export const state = () => ({
   user: null
 })
 
+export const getters = {
+  isAdmin (state) {
+    return !!state.user.isAdmin
+  }
+}
+
 export const actions = {
   async signIn (ctx, user) {
     const { email, password } = user

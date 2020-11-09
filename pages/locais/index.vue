@@ -10,7 +10,7 @@ import LocaisList from '~/components/LocaisList'
 export default {
   name: 'LocaisDashboard',
   layout: 'dashboard',
-  middleware: 'auth',
+  middleware: ['auth', 'routers-private'],
   components: {
     LocaisList
   }

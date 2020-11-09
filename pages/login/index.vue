@@ -50,7 +50,15 @@
       <v-card-actions>
         <v-row>
           <v-col class="text-center" cols="12">
-            <reset-password />
+            <v-btn
+              class="mb-2 btn-password"
+              text
+              link
+              small
+              @click="resetPassword"
+            >
+              Esqueceu sua senha ou deseja atualizar?
+            </v-btn>
           </v-col>
           <v-col class="text-center" cols="12">
             <v-btn
@@ -72,14 +80,10 @@
 
 <script>
 import { mapState } from 'vuex'
-import ResetPassword from '~/components/ResetPassword'
 
 export default {
   name: 'Login',
   middleware: 'guest',
-  components: {
-    ResetPassword
-  },
   data: () => ({
     user: {},
     loading: false
@@ -97,6 +101,11 @@ export default {
     }
   },
   methods: {
+    resetPassword () {
+      this.$store.commit('dialog/DIALOG_OPEN', {
+        component: 'ResetPassword'
+      })
+    },
     login () {
       this.$refs.form.validate()
         .then((success) => {
