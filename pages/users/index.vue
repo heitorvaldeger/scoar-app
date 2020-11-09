@@ -10,7 +10,7 @@ import UsersList from '~/components/UsersList'
 export default {
   name: 'UsersDashboard',
   layout: 'dashboard',
-  middleware: 'auth',
+  middleware: ['auth', 'routers-private'],
   components: {
     UsersList
   }

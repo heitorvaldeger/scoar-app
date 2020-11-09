@@ -23,6 +23,7 @@
         </v-icon>
       </v-btn>
       <v-btn
+        v-if="isAdmin"
         fab
         class="mx-2"
         to="locais"
@@ -35,6 +36,7 @@
         </v-icon>
       </v-btn>
       <v-btn
+        v-if="isAdmin"
         fab
         class="mx-2"
         to="users"
@@ -103,11 +105,11 @@ export default {
   layout: 'Dashboard',
   computed: {
     ...mapState({
-      user: state => state.auth.user,
       dialogData: state => state.dialog.data
     }),
     ...mapGetters({
-      dialogName: 'dialog/COMPONENT_DIALOG'
+      dialogName: 'dialog/COMPONENT_DIALOG',
+      isAdmin: 'auth/isAdmin'
     })
   },
   methods: {

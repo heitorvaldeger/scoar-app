@@ -10,7 +10,7 @@
     <v-row>
       <v-col v-for="(item, index) in dispositivos" :key="index" cols="auto">
         <dispositivos-item :item="item">
-          <template v-slot:menu>
+          <template v-if="isAdmin" v-slot:menu>
             <v-menu offset-y>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
@@ -40,13 +40,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'DispositivosList',
   computed: {
     ...mapState({
       dispositivos: state => state.dispositivos.all
+    }),
+    ...mapGetters({
+      isAdmin: 'auth/isAdmin'
     })
   },
   created () {
