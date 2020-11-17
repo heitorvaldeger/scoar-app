@@ -38,6 +38,19 @@
             </v-row>
             <v-row>
               <v-col cols="12">
+                <ValidationProvider v-slot="{ errors }" name="Matrícula do Usuário" rules="required">
+                  <v-text-field
+                    v-model="user.matricula"
+                    label="Matrícula do Usuário"
+                    hint="A matrícula do usuário será sua senha no sistema"
+                    color="black"
+                    :error-messages="errors"
+                  />
+                </ValidationProvider>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12">
                 <v-checkbox
                   v-model="user.admin"
                   label="Administrador"

@@ -10,7 +10,7 @@ exports.createNewUser = functions.https.onCall((data, context) => {
     displayName: data.nome,
     email: data.email,
     emailVerified: false,
-    password: '12345678'
+    password: data.matricula
   })
     .then((user) => {
       if (data.admin) {
