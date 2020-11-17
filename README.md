@@ -1,12 +1,9 @@
-# Projeto Integrador (scoar-app)
+# Sistema de Controle Online de Ar Condicionados (scoar-app)
 
-## O problema
-O problema deste trabalho busca criar uma solução para automatizar o controle de Ar Condicionados no IFRN Campus Currais Novos, trabalhando de maneira conjunta com o uso de controles remotos para a sua manipulação.
+## Sobre o sistema
+A proposta do app é de controlar os aparelhos de ar condicionado do IFRN Campus Currais Novos através de uma aplicação web.
+A aplicação está disponível em: https://scoar-app.web.app | https://scoar-app.firebaseapp.com
 
-## Temática abordada
-- IoT (Internet of Things)
-- Sistemas web
-- Desenvolvimento de aplicativo
+## Recursos utilizados
+![Tools Logo](https://user-images.githubusercontent.com/38170594/99450619-bd24a900-28ff-11eb-8024-e65c0203aed5.png)
 
-## Objetivo do projeto
-Criar um Sistema de Controle Online de Ar Condicionado (SCOAR) fornecendo um ambiente administrativo para gerenciar ar-condicionados do IFRN Campus Currais Novos e permitir a manipulação de variáveis como a temperatura e o seu estado.
