@@ -5,6 +5,7 @@
     sort-by="calories"
     class="elevation-1"
     item-key=".key"
+    :loading="loading"
   >
     <template v-slot:top>
       <v-toolbar flat color="white">
@@ -46,6 +47,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'LocaisList',
   data: () => ({
+    loading: false,
     headers: [
       {
         text: 'ID',
@@ -64,7 +66,11 @@ export default {
     })
   },
   created () {
+    this.loading = true
     this.$store.dispatch('locais/getLocais')
+      .finally(() => {
+        this.loading = false
+      })
   },
   methods: {
     locaisAdd () {

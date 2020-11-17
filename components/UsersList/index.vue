@@ -6,6 +6,7 @@
     sort-by="email"
     class="elevation-1"
     item-key=".key"
+    :loading="loading"
   >
     <template v-slot:top>
       <v-toolbar flat color="white">
@@ -53,6 +54,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'UsersList',
   data: () => ({
+    loading: false,
     headers: [
       { text: 'Nome do Usuário', value: 'displayName', align: 'center' },
       { text: 'Email do Usuário', value: 'email', align: 'center' },
@@ -65,7 +67,11 @@ export default {
     })
   },
   created () {
+    this.loading = true
     this.$store.dispatch('users/getUsers')
+      .finally(() => {
+        this.loading = false
+      })
   },
   methods: {
     userAdd () {
