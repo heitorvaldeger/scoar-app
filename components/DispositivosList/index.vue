@@ -1,8 +1,8 @@
 <template>
   <span>
     <v-btn
-      color="gray"
       v-if="isAdmin"
+      color="gray"
       dark
       @click="dispositivoAdd"
     >
