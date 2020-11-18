@@ -1,12 +1,11 @@
 import colors from 'vuetify/es5/util/colors'
-require('dotenv').config()
 
 export default {
   /*
   ** Nuxt rendering mode
   ** See https://nuxtjs.org/api/configuration-mode
   */
-  mode: 'spa',
+  ssr: false,
   /*
   ** Nuxt target
   ** See https://nuxtjs.org/api/configuration-target
@@ -41,6 +40,9 @@ export default {
   plugins: [
     '~/plugins/global.js'
   ],
+  router: {
+    middleware: 'home'
+  },
   /*
   ** Auto import components
   ** See https://nuxtjs.org/api/configuration-components
@@ -69,16 +71,16 @@ export default {
 
   firebase: {
     config: {
-      apiKey: process.env.FIREBASE_API_KEY,
-      authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+      apiKey: 'AIzaSyDi7FTJplxdcfOjRdkq4in0MsA-MSRLULc',
+      authDomain: 'scoar-app.firebaseapp.com',
       databaseURL: (process.env.NODE_ENV === 'production')
-        ? process.env.FIREBASE_DATABASE_URL_PROD
-        : process.env.FIREBASE_DATABASE_URL_PROD,
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-      messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-      appId: process.env.FIREBASE_APP_ID,
-      measurementId: process.env.FIREBASE_MEASUREMENT_ID
+        ? 'https://scoar-app.firebaseio.com'
+        : 'http://localhost:9000?ns=scoar-app',
+      projectId: 'scoar-app',
+      storageBucket: 'scoar-app.appspot.com',
+      messagingSenderId: '863908883910',
+      appId: '1:863908883910:web:809f00cd5b6a123c6c16c7',
+      measurementId: 'G-RG65LNDC1C'
     },
     services: {
       database: true,
@@ -99,7 +101,7 @@ export default {
   },
   pwa: {
     meta: false,
-    icon: false,
+    icon: true,
     workbox: {
       importScripts: [
         // ...
@@ -108,6 +110,9 @@ export default {
       // by default the workbox module will not install the service worker in dev environment to avoid conflicts with HMR
       // only set this true for testing and remember to always clear your browser cache in development
       dev: false
+    },
+    manifest: {
+      start_url: ''
     }
   },
   /*

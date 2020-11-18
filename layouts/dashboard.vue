@@ -117,7 +117,7 @@ export default {
       this.$store.dispatch('auth/signOut')
         .then(() => {
           this.$store.commit('auth/CLEAR_USER')
-          this.$router.replace('/')
+          this.$router.push('login')
         })
     },
     userUpdateEmail () {
