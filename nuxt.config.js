@@ -98,8 +98,8 @@ export default {
     }
   },
   pwa: {
-    meta: false,
-    icon: false,
+    meta: true,
+    icon: true,
     workbox: {
       importScripts: [
         // ...
