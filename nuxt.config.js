@@ -40,9 +40,7 @@ export default {
   plugins: [
     '~/plugins/global.js'
   ],
-  router: {
-    middleware: 'home'
-  },
+
   /*
   ** Auto import components
   ** See https://nuxtjs.org/api/configuration-components
@@ -100,7 +98,7 @@ export default {
     }
   },
   pwa: {
-    meta: false,
+    meta: true,
     icon: true,
     workbox: {
       importScripts: [
@@ -110,9 +108,6 @@ export default {
       // by default the workbox module will not install the service worker in dev environment to avoid conflicts with HMR
       // only set this true for testing and remember to always clear your browser cache in development
       dev: false
-    },
-    manifest: {
-      start_url: ''
     }
   },
   /*
