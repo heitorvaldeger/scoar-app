@@ -67,10 +67,10 @@
           </v-btn>
         </template>
 
-        <v-list>
+        <v-list dense>
           <v-list-item @click="userUpdateEmail">
             <v-list-item-icon>
-              <v-icon v-text="'mdi-account'" />
+              <v-icon v-text="'mdi-account'" small/>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>Atualizar Email</v-list-item-title>
@@ -78,7 +78,7 @@
           </v-list-item>
           <v-list-item @click="signOut">
             <v-list-item-icon>
-              <v-icon v-text="'mdi-logout'" />
+              <v-icon v-text="'mdi-logout'" small/>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>Sair</v-list-item-title>

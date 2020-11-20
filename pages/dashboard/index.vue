@@ -1,16 +1,9 @@
 <template>
   <v-container>
     <v-row align="center">
-      <v-col cols="7">
-        <v-autocomplete
-          item-value="id"
-          :item-text="(item) => {return `${item.id} - ${item.nome}`}"
-          :items="locais"
-          hide-no-data
-          hide-selected
-          label="Filtrar por local"
-          clearable
-        />
+      <v-col>
+        <h2>Dashboard</h2>
+        <v-divider />
       </v-col>
     </v-row>
     <dispositivos-list />
@@ -18,19 +11,19 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 
 export default {
   name: 'Dashboard',
   layout: 'dashboard',
   middleware: 'auth',
-  computed: {
-    ...mapState({
-      locais: state => state.locais.all
-    })
-  },
+  // computed: {
+  //   ...mapState({
+  //     locais: state => state.locais.all
+  //   })
+  // },
   created () {
-    this.$store.dispatch('locais/getLocais')
+    // this.$store.dispatch('locais/getLocais')
   }
 }
 </script>
