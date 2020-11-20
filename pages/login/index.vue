@@ -96,6 +96,7 @@ export default {
   watch: {
     authUser (val) {
       if (val) {
+        this.loading = false
         this.$router.push('dashboard')
       }
     }
@@ -121,8 +122,6 @@ export default {
                 title: err.message,
                 closeOnClick: true
               })
-            })
-            .finally(() => {
               this.loading = false
             })
         })
