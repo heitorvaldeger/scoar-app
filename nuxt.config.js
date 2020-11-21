@@ -2,6 +2,13 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   loading: false,
+
+  vue: {
+    config: {
+      devtools: true
+    }
+  },
+
   /*
   ** Nuxt rendering mode
   ** See https://nuxtjs.org/api/configuration-mode

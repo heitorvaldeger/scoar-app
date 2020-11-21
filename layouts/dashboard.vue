@@ -70,7 +70,7 @@
         <v-list dense>
           <v-list-item @click="userUpdateEmail">
             <v-list-item-icon>
-              <v-icon v-text="'mdi-account'" small/>
+              <v-icon small v-text="'mdi-account'" />
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>Atualizar Email</v-list-item-title>
@@ -78,7 +78,7 @@
           </v-list-item>
           <v-list-item @click="signOut">
             <v-list-item-icon>
-              <v-icon v-text="'mdi-logout'" small/>
+              <v-icon small v-text="'mdi-logout'" />
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>Sair</v-list-item-title>
@@ -103,21 +103,27 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   layout: 'Dashboard',
+  data () {
+    return ({
+      isAdmin: false
+    })
+  },
   computed: {
     ...mapState({
       dialogData: state => state.dialog.data
     }),
     ...mapGetters({
-      dialogName: 'dialog/COMPONENT_DIALOG',
-      isAdmin: 'auth/isAdmin'
+      dialogName: 'dialog/COMPONENT_DIALOG'
     })
+  },
+  created () {
+    this.isAdmin = this.$store.getters['auth/isAdmin']
   },
   methods: {
     signOut () {
       this.$store.dispatch('auth/signOut')
         .then(() => {
-          this.$store.commit('auth/CLEAR_USER')
-          this.$router.push('login')
+          this.$router.replace('/login')
         })
     },
     userUpdateEmail () {

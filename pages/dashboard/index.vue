@@ -11,19 +11,13 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex'
 
 export default {
   name: 'Dashboard',
   layout: 'dashboard',
   middleware: 'auth',
-  // computed: {
-  //   ...mapState({
-  //     locais: state => state.locais.all
-  //   })
-  // },
-  created () {
-    // this.$store.dispatch('locais/getLocais')
+  beforeCreate () {
+    this.$store.dispatch('locais/getLocais')
   }
 }
 </script>

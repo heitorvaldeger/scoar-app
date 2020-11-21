@@ -15,7 +15,7 @@ export const actions = {
 
     return await this.$fire.auth.signInWithEmailAndPassword(email, password)
   },
-  async signOut (ctx) {
+  async signOut ({ commit }) {
     return await this.$fire.auth.signOut()
   },
   async resetPassword (ctx, email) {
@@ -24,11 +24,10 @@ export const actions = {
   async onAuthStateChangedAction ({ commit }, { authUser, claims }) {
     if (!authUser) {
       await commit('CLEAR_USER')
-
       return
     }
     const { uid, email, emailVerified, displayName, idToken } = authUser
-    commit('SET_USER', {
+    await commit('SET_USER', {
       uid,
       email,
       emailVerified,
