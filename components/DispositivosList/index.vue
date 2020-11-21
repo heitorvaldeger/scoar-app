@@ -41,19 +41,22 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'DispositivosList',
+  data () {
+    return ({
+      isAdmin: false
+    })
+  },
   computed: {
     ...mapState({
       dispositivos: state => state.dispositivos.all
-    }),
-    ...mapGetters({
-      isAdmin: 'auth/isAdmin'
     })
   },
   created () {
+    this.isAdmin = this.$store.getters['auth/isAdmin']
     this.$store.dispatch('dispositivos/getDispositivos')
   },
   methods: {

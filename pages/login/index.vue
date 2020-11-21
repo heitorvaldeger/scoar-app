@@ -44,36 +44,33 @@
                 </ValidationProvider>
               </v-col>
             </v-row>
+            <v-row>
+              <v-col class="text-center" cols="12">
+                <v-btn
+                  class="mb-2 btn-password"
+                  text
+                  link
+                  small
+                  @click="resetPassword"
+                >
+                  Esqueceu sua senha ou deseja atualizar?
+                </v-btn>
+              </v-col>
+              <v-col class="text-center" cols="12">
+                <v-btn
+                  dark
+                  color="dark darken-1"
+                  depressed
+                  type="submit"
+                  :loading="loading"
+                >
+                  Entrar
+                </v-btn>
+              </v-col>
+            </v-row>
           </v-form>
         </ValidationObserver>
       </v-card-text>
-      <v-card-actions>
-        <v-row>
-          <v-col class="text-center" cols="12">
-            <v-btn
-              class="mb-2 btn-password"
-              text
-              link
-              small
-              @click="resetPassword"
-            >
-              Esqueceu sua senha ou deseja atualizar?
-            </v-btn>
-          </v-col>
-          <v-col class="text-center" cols="12">
-            <v-btn
-              dark
-              color="dark darken-1"
-              depressed
-              type="submit"
-              :loading="loading"
-              @click="login"
-            >
-              Entrar
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-card-actions>
     </v-card>
   </v-container>
 </template>
@@ -98,6 +95,7 @@ export default {
       if (val) {
         this.$router.push('dashboard')
       }
+      this.loading = false
     }
   },
   methods: {
@@ -121,8 +119,6 @@ export default {
                 title: err.message,
                 closeOnClick: true
               })
-            })
-            .finally(() => {
               this.loading = false
             })
         })
