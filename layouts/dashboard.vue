@@ -9,45 +9,6 @@
       <img src="~/assets/images/ifrn-logo.png" width="140">
 
       <v-spacer />
-
-      <v-btn
-        fab
-        class="mx-2"
-        to="/"
-        x-small
-        depressed
-        color="white"
-      >
-        <v-icon color="blue-grey darken-1">
-          mdi-home
-        </v-icon>
-      </v-btn>
-      <v-btn
-        v-if="isAdmin"
-        fab
-        class="mx-2"
-        to="locais"
-        x-small
-        depressed
-        color="white"
-      >
-        <v-icon color="blue-grey darken-1">
-          mdi-map-marker
-        </v-icon>
-      </v-btn>
-      <v-btn
-        v-if="isAdmin"
-        fab
-        class="mx-2"
-        to="users"
-        x-small
-        depressed
-        color="white"
-      >
-        <v-icon color="blue-grey darken-1">
-          mdi-account-group
-        </v-icon>
-      </v-btn>
       <v-menu
         top
         close-on-click
@@ -56,8 +17,8 @@
           <v-btn
             fab
             v-bind="attrs"
-            x-small
             depressed
+            small
             color="white"
             v-on="on"
           >
@@ -93,6 +54,34 @@
         <nuxt />
       </v-container>
     </v-main>
+
+    <v-bottom-navigation
+      :value="value"
+      color="teal"
+      grow
+    >
+      <v-btn to="/">
+        <span>Home</span>
+        <v-icon>
+          mdi-home
+        </v-icon>
+      </v-btn>
+
+      <v-btn v-if="isAdmin" to="locais">
+        <span>Locais</span>
+        <v-icon>
+          mdi-map-marker
+        </v-icon>
+      </v-btn>
+
+      <v-btn v-if="isAdmin" to="users">
+        <span>Usuários</span>
+        <v-icon>
+          mdi-account-group
+        </v-icon>
+      </v-btn>
+    </v-bottom-navigation>
+
     <component :is="dialogName || null" :data="dialogData" />
     <notifications position="bottom center" />
   </v-app>
