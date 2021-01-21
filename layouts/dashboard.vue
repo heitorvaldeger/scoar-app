@@ -1,7 +1,6 @@
 <template>
   <v-app dark>
     <v-app-bar
-      fixed
       app
       color="white"
       height="60"
@@ -56,9 +55,9 @@
     </v-main>
 
     <v-bottom-navigation
-      :value="value"
       color="teal"
       grow
+      fixed
     >
       <v-btn to="/">
         <span>Home</span>
