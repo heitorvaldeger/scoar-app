@@ -15,7 +15,7 @@ export default {
       if (!user) {
         return redirect('/login')
       }
-      return redirect('/dashboard')
+      return redirect('/dispositivos')
     }
   }
 }

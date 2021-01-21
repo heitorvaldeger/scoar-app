@@ -15,14 +15,12 @@
           inset
           vertical
         />
-        <v-spacer />
         <v-btn
           color="black darken-1"
           dark
-          class="mb-2"
           @click="locaisAdd"
         >
-          Novo Item
+          Novo Local
         </v-btn>
       </v-toolbar>
     </template>
