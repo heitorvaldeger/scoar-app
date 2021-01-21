@@ -1,13 +1,5 @@
 <template>
   <span>
-    <v-btn
-      v-if="isAdmin"
-      color="gray"
-      dark
-      @click="dispositivoAdd"
-    >
-      Novo Dispositivo
-    </v-btn>
     <v-row>
       <v-col v-for="(item, index) in dispositivos" :key="index" cols="auto">
         <dispositivos-item :item="item">
@@ -60,11 +52,6 @@ export default {
     this.$store.dispatch('dispositivos/getDispositivos')
   },
   methods: {
-    dispositivoAdd () {
-      this.$store.commit('dialog/DIALOG_OPEN', {
-        component: 'DispositivosAdd'
-      })
-    },
     dispositivosEdit (item) {
       this.$store.commit('dialog/DIALOG_OPEN', {
         component: 'DispositivosEdit',
