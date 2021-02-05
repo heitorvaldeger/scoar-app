@@ -5,7 +5,7 @@ export default {
 
   vue: {
     config: {
-      devtools: true
+      devtools: process.env.NODE_ENV === 'production' ? false : true
     }
   },
 
@@ -98,7 +98,6 @@ export default {
       auth: {
         persistence: 'local', // default
         initialize: {
-          // onAuthStateChangedMutation: 'auth/ON_AUTH_STATE_CHANGED_MUTATION'
           onAuthStateChangedAction: 'auth/onAuthStateChangedAction'
         },
         ssr: false
