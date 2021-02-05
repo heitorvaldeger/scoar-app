@@ -122,3 +122,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  .v-item-group.v-bottom-navigation .v-btn.v-size--default {
+    height: inherit;
+  }
+</style>
