@@ -93,7 +93,7 @@ export default {
   watch: {
     authUser (val) {
       if (val) {
-        this.$router.push('dashboard')
+        this.$router.push('dispositivos')
       }
       this.loading = false
     }
