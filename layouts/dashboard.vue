@@ -60,9 +60,16 @@
       fixed
     >
       <v-btn to="/">
-        <span>Home</span>
+        <span>Dashboard</span>
         <v-icon>
-          mdi-home
+          mdi-view-dashboard
+        </v-icon>
+      </v-btn>
+
+      <v-btn v-if="isAdmin" to="dispositivos">
+        <span>Dispositivos</span>
+        <v-icon>
+          mdi-devices
         </v-icon>
       </v-btn>
 
