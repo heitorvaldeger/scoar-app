@@ -19,12 +19,12 @@ export const actions = {
       ...rest
     })
   }),
-  editDispositivo: firebaseAction(async function (content, payload) {
-    const { key, ...dispositivo } = payload
+  editDispositivo: firebaseAction(async function (content, dispositivo) {
+    const { key, ...rest } = dispositivo
     const ref = this.$fire.database.ref(`dispositivos/${key}`)
 
     await ref.update({
-      ...dispositivo
+      ...rest
     })
   }),
   deleteDispositivo: firebaseAction(async function (context, dispositivoKey) {

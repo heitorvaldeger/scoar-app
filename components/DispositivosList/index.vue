@@ -77,10 +77,10 @@ export default {
         component: 'DispositivosAdd'
       })
     },
-    dispositivosEdit (item) {
+    dispositivosEdit (dispositivo) {
       this.$store.commit('dialog/DIALOG_OPEN', {
         component: 'DispositivosEdit',
-        data: item
+        data: dispositivo
       })
     },
     remove (dispositivoKey) {
