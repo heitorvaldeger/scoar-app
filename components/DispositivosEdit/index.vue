@@ -28,16 +28,11 @@
             </v-row>
             <v-row>
               <v-col cols="12">
-                <ValidationProvider v-slot="{ errors }" name="ID" rules="required">
-                  <v-text-field
-                    v-model="dispositivo.id"
-                    label="ID do dispositivo"
-                    hint="Ex.: AC01, AC02"
-                    color="black darken-1"
-                    required
-                    :error-messages="errors"
-                  />
-                </ValidationProvider>
+                <v-text-field
+                  v-model="dispositivoKey"
+                  color="black darken-1"
+                  disabled
+                />
               </v-col>
             </v-row>
             <v-row>
@@ -88,6 +83,7 @@ export default {
   },
   data: () => ({
     dispositivo: {},
+    dispositivoKey: '',
     loading: false
   }),
   computed: {
@@ -97,16 +93,13 @@ export default {
   },
   beforeMount () {
     this.dispositivo = Object.assign({}, this.data)
-    this.dispositivo.key = this.data['.key']
+    this.dispositivoKey = this.data['.key']
   },
   methods: {
-    openDialog () {
-      this.dispositivo = Object.assign({}, this.item)
-      this.dispositivo.key = this.item['.key']
-    },
     closeDialog () {
       this.$store.commit('dialog/DIALOG_CLOSE')
       this.dispositivo = {}
+      this.dispositivoKey = ''
       this.$refs.form.reset()
     },
     onSubmit () {
@@ -116,7 +109,8 @@ export default {
 
           this.loading = true
           this.$store.dispatch('dispositivos/editDispositivo', {
-            ...this.dispositivo
+            ...this.dispositivo,
+            key: this.dispositivoKey
           })
             .then(() => {
               this.$notify({
