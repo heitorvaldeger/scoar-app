@@ -16,19 +16,19 @@
           inset
           vertical
         />
+        <v-btn
+          color="black darken-1"
+          dark
+          outlined
+          @click="userAdd"
+        >
+          Novo Usuário
+        </v-btn>
         <v-spacer />
         <v-btn icon class="mx-2" @click="updateList">
           <v-icon>
             mdi-reload
           </v-icon>
-        </v-btn>
-        <v-btn
-          color="primary"
-          dark
-          class="mb-2"
-          @click="userAdd"
-        >
-          Novo Usuário
         </v-btn>
       </v-toolbar>
     </template>

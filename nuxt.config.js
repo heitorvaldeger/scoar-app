@@ -81,7 +81,7 @@ export default {
       authDomain: process.env.FIREBASE_AUTH_DOMAIN,
       databaseURL: (process.env.NODE_ENV === 'production')
         ? process.env.FIREBASE_DATABASE_URL
-        : 'http://localhost:9000?ns=scoar-app',
+        : 'http://localhost:9000?ns=fake-server',
       projectId: process.env.FIREBASE_PROJECT_ID,
       storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
       messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,

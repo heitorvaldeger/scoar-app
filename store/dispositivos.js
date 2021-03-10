@@ -10,19 +10,21 @@ export const actions = {
     return bindFirebaseRef('all', ref)
   }),
   addDispositivo: firebaseAction(function (context, dispositivo) {
-    const ref = this.$fire.database.ref('dispositivos')
-    return ref.push().set({
-      ...dispositivo,
+    const { id, ...rest } = dispositivo
+
+    const ref = this.$fire.database.ref(`dispositivos/${id}`)
+    return ref.set({
       status: false,
-      temp: 16
+      temp: 16,
+      ...rest
     })
   }),
-  editDispositivo: firebaseAction(async function (content, payload) {
-    const { key, ...dispositivo } = payload
+  editDispositivo: firebaseAction(async function (content, dispositivo) {
+    const { key, ...rest } = dispositivo
     const ref = this.$fire.database.ref(`dispositivos/${key}`)
 
     await ref.update({
-      ...dispositivo
+      ...rest
     })
   }),
   deleteDispositivo: firebaseAction(async function (context, dispositivoKey) {
@@ -52,5 +54,9 @@ export const actions = {
 
       return dispositivo
     })
-  })
+  }),
+  async checkDispositivosAlreadyExists (context, dispositivoKey) {
+    const result = await this.$fire.database.ref(`/dispositivos/${dispositivoKey}`).once('value')
+    return result.val()
+  }
 }

@@ -100,8 +100,21 @@ export default {
     },
     onSubmit () {
       this.$refs.form.validate()
-        .then((success) => {
+        .then(async (success) => {
           if (!success) { return }
+
+          const dispositivoExist =
+            await this.$store.dispatch('dispositivos/checkDispositivosAlreadyExists', this.dispositivo.id.toUpperCase())
+
+          if (dispositivoExist) {
+            this.$notify({
+              type: 'error',
+              title: 'Este dispositivo já existe',
+              closeOnClick: true
+            })
+
+            return
+          }
 
           this.$store.dispatch('dispositivos/addDispositivo', {
             ...this.dispositivo,

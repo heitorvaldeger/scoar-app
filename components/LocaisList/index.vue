@@ -18,6 +18,7 @@
         <v-btn
           color="black darken-1"
           dark
+          outlined
           @click="locaisAdd"
         >
           Novo Local
