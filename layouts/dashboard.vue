@@ -59,7 +59,7 @@
       grow
       fixed
     >
-      <v-btn to="/">
+      <v-btn to="/dashboard">
         <span>Dashboard</span>
         <v-icon>
           mdi-view-dashboard
