@@ -5,7 +5,7 @@ export default {
 
   vue: {
     config: {
-      devtools: process.env.NODE_ENV === 'production' ? false : true
+      devtools: process.env.NODE_ENV !== 'production'
     }
   },
 
@@ -54,6 +54,7 @@ export default {
   ** See https://nuxtjs.org/api/configuration-components
   */
   components: true,
+
   /*
   ** Nuxt.js dev-modules
   */
@@ -71,7 +72,7 @@ export default {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt/content
     // '@nuxt/content',
-    '@nuxtjs/firebase',
+    '@nuxtjs/firebase'
     // '@nuxtjs/axios'
   ],
 
