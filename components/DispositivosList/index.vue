@@ -26,6 +26,11 @@
         </v-btn>
       </v-toolbar>
     </template>
+
+    <template v-slot:item.tipo="{ item }">
+      {{ getTipoDispositivo(item.tipo) }}
+    </template>
+
     <template v-slot:item.actions="{ item }">
       <v-btn icon @click="dispositivosEdit(item)">
         <v-icon small>
@@ -72,6 +77,17 @@ export default {
       })
   },
   methods: {
+    getTipoDispositivo (tipo) {
+      const tipos = [
+        { tipo: 1, nome: 'Ar Condicionado' },
+        { tipo: 2, nome: 'Sensor' },
+        { tipo: 3, nome: 'Caldeira' }
+      ]
+
+      const item = tipos.find(item => item.tipo === tipo)
+
+      return item.nome
+    },
     dispositivoAdd () {
       this.$store.commit('dialog/DIALOG_OPEN', {
         component: 'DispositivosAdd'

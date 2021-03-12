@@ -5,12 +5,18 @@ export const state = () => ({
 })
 
 export const actions = {
-  getDispositivos: firebaseAction(function ({ bindFirebaseRef, commit }, dispositivoTipo) {
-    const ref = this.$fire.database.ref('dispositivos')
-    // commit('setTipoSelected', dispositivoTipo)
-
-    return bindFirebaseRef('all', ref.orderByChild('tipo').equalTo(dispositivoTipo))
-  }),
+  getDispositivos: firebaseAction(
+    function ({ bindFirebaseRef }) {
+      const ref = this.$fire.database.ref('dispositivos')
+      return bindFirebaseRef('all', ref)
+    }
+  ),
+  getDispositivosByTipo: firebaseAction(
+    function ({ bindFirebaseRef }, dispositivoTipo) {
+      const ref = this.$fire.database.ref('dispositivos')
+      return bindFirebaseRef('all', ref.orderByChild('tipo').equalTo(dispositivoTipo))
+    }
+  ),
   addDispositivo: firebaseAction(function (context, dispositivo) {
     const { id, ...rest } = dispositivo
 

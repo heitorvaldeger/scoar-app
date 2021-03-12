@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     changeTab ({ tipo }) {
-      this.$store.dispatch('dispositivos/getDispositivos', tipo)
+      this.$store.dispatch('dispositivos/getDispositivosByTipo', tipo)
         .then(() => {
           this.tipoSelected = tipo
         })
