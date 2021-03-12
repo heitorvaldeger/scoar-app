@@ -28,7 +28,7 @@
         :key="i"
       >
         <template v-if="tipoSelected === 1">
-          <ar-condicionado-card />
+          <p>Hello World</p>
         </template>
       </v-tab-item>
     </v-tabs-items>
@@ -50,7 +50,7 @@ export default {
         tipo: 1
       },
       {
-        nome: 'Luzes',
+        nome: 'Sensores',
         icone: 'mdi-lightbulb',
         disabled: true,
         tipo: 2
@@ -76,9 +76,6 @@ export default {
   },
   beforeCreate () {
     this.$store.dispatch('locais/getLocais')
-  },
-  mounted () {
-    console.log(this.tab)
   },
   methods: {
     changeTab ({ tipo }) {
