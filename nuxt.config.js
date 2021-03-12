@@ -54,6 +54,7 @@ export default {
   ** See https://nuxtjs.org/api/configuration-components
   */
   components: true,
+
   /*
   ** Nuxt.js dev-modules
   */
