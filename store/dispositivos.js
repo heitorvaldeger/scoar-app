@@ -22,14 +22,13 @@ export const actions = {
 
     const ref = this.$fire.database.ref(`dispositivos/${id}`)
     return ref.set({
-      status: false,
-      temp: 16,
       ...rest
     })
   }),
   editDispositivo: firebaseAction(async function (content, dispositivo) {
-    const { key, ...rest } = dispositivo
-    const ref = this.$fire.database.ref(`dispositivos/${key}`)
+    const { id, ...rest } = dispositivo
+
+    const ref = this.$fire.database.ref(`dispositivos/${id}`)
 
     await ref.update({
       ...rest

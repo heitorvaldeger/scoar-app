@@ -15,15 +15,32 @@
           inset
           vertical
         />
-        <v-btn
-          color="black darken-1"
-          dark
-          depressed
-          outlined
-          @click="dispositivoAdd"
+        <v-menu
+          offset-y
         >
-          Registrar Dispositivo
-        </v-btn>
+          <template v-slot:activator="{ attrs, on }">
+            <v-btn
+              color="black darken-1"
+              class="white--text ma-5"
+              v-bind="attrs"
+              v-on="on"
+            >
+              Registrar Dispositivo
+            </v-btn>
+          </template>
+
+          <v-list>
+            <v-list-item
+              v-for="item in tiposDispositivosList"
+              :key="item.tipo"
+              link
+              :disabled="item.disabled"
+              @click="dispositivoAdd(item.component)"
+            >
+              <v-list-item-title v-text="item.tipo" />
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-toolbar>
     </template>
 
@@ -62,6 +79,11 @@ export default {
       },
       { text: 'Tipo', value: 'tipo', align: 'center' },
       { text: 'Actions', value: 'actions', sortable: false, align: 'center' }
+    ],
+    tiposDispositivosList: [
+      { id: 1, tipo: 'Ar Condicionado', component: 'ArCondicionadoForm' },
+      { id: 2, tipo: 'Sensor', disabled: true },
+      { id: 3, tipo: 'Caldeira', disabled: true }
     ]
   }),
   computed: {
@@ -88,14 +110,17 @@ export default {
 
       return item.nome
     },
-    dispositivoAdd () {
+    dispositivoAdd (component) {
       this.$store.commit('dialog/DIALOG_OPEN', {
-        component: 'DispositivosAdd'
+        component
       })
     },
     dispositivosEdit (dispositivo) {
+      const component =
+        this.tiposDispositivosList.find(item => item.id === dispositivo.tipo).component
+
       this.$store.commit('dialog/DIALOG_OPEN', {
-        component: 'DispositivosEdit',
+        component,
         data: dispositivo
       })
     },
