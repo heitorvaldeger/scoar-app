@@ -74,12 +74,12 @@ export default {
   methods: {
     locaisAdd () {
       this.$store.commit('dialog/DIALOG_OPEN', {
-        component: 'LocaisAdd'
+        component: 'LocaisForm'
       })
     },
     locaisEdit (local) {
       this.$store.commit('dialog/DIALOG_OPEN', {
-        component: 'LocaisEdit',
+        component: 'LocaisForm',
         data: local
       })
     },
