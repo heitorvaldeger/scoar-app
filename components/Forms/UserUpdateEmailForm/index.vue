@@ -13,19 +13,6 @@
           >
             <v-row>
               <v-col cols="12">
-                <ValidationProvider v-slot="{ errors }" name="Email Atual" rules="required">
-                  <v-text-field
-                    v-model="email"
-                    label="Email Atual"
-                    required
-                    color="black"
-                    :error-messages="errors"
-                  />
-                </ValidationProvider>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12">
                 <ValidationProvider v-slot="{ errors }" name="Novo Email" rules="required">
                   <v-text-field
                     v-model="novo_email"
@@ -37,22 +24,31 @@
                 </ValidationProvider>
               </v-col>
             </v-row>
-            <v-row>
-              <v-col cols="12">
-                <ValidationProvider v-slot="{ errors }" name="Confirmar Senha" rules="required">
-                  <v-text-field
-                    v-model="password"
-                    type="password"
-                    label="Digite sua senha"
-                    hint="Para finalizar este processo é necessário informar a senha atual"
-                    required
-                    color="black"
-                    :error-messages="errors"
-                  />
-                </ValidationProvider>
-              </v-col>
-            </v-row>
-            <v-row justify="end">
+            <v-spacer class="pt-5" />
+
+            <ValidationProvider v-slot="{ errors }" name="Email Atual" rules="required">
+              <v-text-field
+                v-model="email"
+                label="Email Atual"
+                required
+                color="black"
+                :error-messages="errors"
+              />
+            </ValidationProvider>
+
+            <ValidationProvider v-slot="{ errors }" name="Confirmar Senha" rules="required">
+              <v-text-field
+                v-model="password"
+                type="password"
+                label="Digite sua senha"
+                hint="Para finalizar este processo é necessário informar a senha atual"
+                required
+                color="black"
+                :error-messages="errors"
+              />
+            </ValidationProvider>
+
+            <v-row justify="end" class="mt-2">
               <v-btn color="black darken-1" text @click="closeDialog">
                 Cancel
               </v-btn>
