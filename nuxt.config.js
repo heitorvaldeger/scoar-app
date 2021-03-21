@@ -105,8 +105,7 @@ export default {
     config: firebaseConfig,
     services: {
       database: true,
-      functions: (process.env.NODE_ENV !== 'production')
-        ? firebaseFunctionsConfig : true,
+      functions: (process.env.NODE_ENV !== 'production') ? firebaseFunctionsConfig : true,
       auth: {
         persistence: 'local', // default
         initialize: {
