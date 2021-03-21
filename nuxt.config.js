@@ -53,7 +53,13 @@ export default {
   ** Auto import components
   ** See https://nuxtjs.org/api/configuration-components
   */
-  components: true,
+  components: {
+    dirs: [
+      '~/components',
+      '~/components/Dispositivos',
+      '~/components/Forms'
+    ]
+  },
 
   /*
   ** Nuxt.js dev-modules

@@ -26,12 +26,24 @@
       <v-tab-item
         v-for="i in qtdTiposDispositivos"
         :key="i"
+        class="pa-2"
       >
         <template v-if="tipoSelected === 1">
-          <ar-condicionado-card />
+          <v-row>
+            <v-col v-for="item in dispositivos" :key="item.id" cols="auto">
+              <ar-condicionado-componente :data="item" />
+            </v-col>
+          </v-row>
         </template>
       </v-tab-item>
     </v-tabs-items>
+
+    <v-overlay :value="loading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+      />
+    </v-overlay>
   </v-container>
 </template>
 
@@ -50,7 +62,7 @@ export default {
         tipo: 1
       },
       {
-        nome: 'Luzes',
+        nome: 'Sensores',
         icone: 'mdi-lightbulb',
         disabled: true,
         tipo: 2
@@ -64,7 +76,7 @@ export default {
     ],
     activeTab: 0,
     tipoSelected: 1,
-    text: 'Hello'
+    loading: false
   }),
   computed: {
     ...mapState({
@@ -77,14 +89,18 @@ export default {
   beforeCreate () {
     this.$store.dispatch('locais/getLocais')
   },
-  mounted () {
-    console.log(this.tab)
+  created () {
+    this.changeTab({ tipo: this.tipoSelected })
   },
   methods: {
     changeTab ({ tipo }) {
-      this.$store.dispatch('dispositivos/getDispositivos', tipo)
+      this.loading = true
+      this.$store.dispatch('dispositivos/getDispositivosByTipo', tipo)
         .then(() => {
           this.tipoSelected = tipo
+        })
+        .finally(() => {
+          this.loading = false
         })
     }
   }

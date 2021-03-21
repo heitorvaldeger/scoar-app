@@ -20,11 +20,11 @@ export const actions = {
       ...local
     })
   }),
-  editLocal: firebaseAction(async function (context, payload) {
-    const { key, ...local } = payload
+  editLocal: firebaseAction(async function (context, local) {
+    const { key, ...rest } = local
     const ref = this.$fire.database.ref(`locais/${key}`)
     await ref.update({
-      ...local
+      ...rest
     })
   }),
   deleteLocal: firebaseAction(async function (context, localKey) {
