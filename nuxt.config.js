@@ -75,7 +75,8 @@ export default {
   components: {
     dirs: [
       '~/components',
-      '~/components/Dispositivos'
+      '~/components/Dispositivos',
+      '~/components/Forms'
     ]
   },
 
