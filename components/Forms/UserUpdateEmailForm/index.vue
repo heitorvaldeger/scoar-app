@@ -71,7 +71,7 @@
 import ModalBase from '~/components/Globals/ModalBase.vue'
 
 export default {
-  name: 'UserUpdateEmail',
+  name: 'UserUpdateEmailForm',
   components: {
     ModalBase
   },
