@@ -15,7 +15,7 @@ export const getters = {
 export const mutations = {
   DIALOG_OPEN (state, payload) {
     const { component, data } = payload
-    state.component = Vue.component(component, () => import(`~/components/${component}`))
+    state.component = Vue.component(component, () => import(`~/components/Forms/${component}`))
     state.data = data || null
     state.open = true
   },
