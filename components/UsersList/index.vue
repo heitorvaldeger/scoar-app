@@ -76,7 +76,7 @@ export default {
   methods: {
     userAdd () {
       this.$store.commit('dialog/DIALOG_OPEN', {
-        component: 'UsersAdd'
+        component: 'UsersForm'
       })
     },
     updateList () {

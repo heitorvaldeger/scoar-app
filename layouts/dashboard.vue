@@ -123,7 +123,7 @@ export default {
     },
     userUpdateEmail () {
       this.$store.commit('dialog/DIALOG_OPEN', {
-        component: 'UserUpdateEmail'
+        component: 'UserUpdateEmailForm'
       })
     }
   }
