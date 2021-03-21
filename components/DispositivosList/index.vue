@@ -15,17 +15,39 @@
           inset
           vertical
         />
-        <v-btn
-          color="black darken-1"
-          dark
-          depressed
-          outlined
-          @click="dispositivoAdd"
+        <v-menu
+          offset-y
         >
-          Registrar Dispositivo
-        </v-btn>
+          <template v-slot:activator="{ attrs, on }">
+            <v-btn
+              color="black darken-1"
+              class="white--text ma-5"
+              v-bind="attrs"
+              v-on="on"
+            >
+              Registrar Dispositivo
+            </v-btn>
+          </template>
+
+          <v-list>
+            <v-list-item
+              v-for="item in tiposDispositivosList"
+              :key="item.tipo"
+              link
+              :disabled="item.disabled"
+              @click="dispositivoAdd(item.component)"
+            >
+              <v-list-item-title v-text="item.tipo" />
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-toolbar>
     </template>
+
+    <template v-slot:item.tipo="{ item }">
+      {{ getTipoDispositivo(item.tipo) }}
+    </template>
+
     <template v-slot:item.actions="{ item }">
       <v-btn icon @click="dispositivosEdit(item)">
         <v-icon small>
@@ -57,6 +79,11 @@ export default {
       },
       { text: 'Tipo', value: 'tipo', align: 'center' },
       { text: 'Actions', value: 'actions', sortable: false, align: 'center' }
+    ],
+    tiposDispositivosList: [
+      { id: 1, tipo: 'Ar Condicionado', component: 'ArCondicionadoForm' },
+      { id: 2, tipo: 'Sensor', disabled: true },
+      { id: 3, tipo: 'Caldeira', disabled: true }
     ]
   }),
   computed: {
@@ -72,14 +99,28 @@ export default {
       })
   },
   methods: {
-    dispositivoAdd () {
+    getTipoDispositivo (tipo) {
+      const tipos = [
+        { tipo: 1, nome: 'Ar Condicionado' },
+        { tipo: 2, nome: 'Sensor' },
+        { tipo: 3, nome: 'Caldeira' }
+      ]
+
+      const item = tipos.find(item => item.tipo === tipo)
+
+      return item.nome
+    },
+    dispositivoAdd (component) {
       this.$store.commit('dialog/DIALOG_OPEN', {
-        component: 'DispositivosAdd'
+        component
       })
     },
     dispositivosEdit (dispositivo) {
+      const component =
+        this.tiposDispositivosList.find(item => item.id === dispositivo.tipo).component
+
       this.$store.commit('dialog/DIALOG_OPEN', {
-        component: 'DispositivosEdit',
+        component,
         data: dispositivo
       })
     },
