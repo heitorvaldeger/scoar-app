@@ -5,11 +5,15 @@
 </template>
 
 <script>
+import DispositivosList from '~/components/DispositivosList'
 
 export default {
   name: 'DispositivosPage',
   layout: 'dashboard',
   middleware: 'auth',
+  components: {
+    DispositivosList
+  },
   data () {
     return ({
       isAdmin: false
