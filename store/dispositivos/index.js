@@ -38,30 +38,6 @@ export const actions = {
     const ref = this.$fire.database.ref(`dispositivos/${dispositivoKey}`)
     await ref.remove()
   }),
-  incrementTemp: firebaseAction(async function (context, dispositivoKey) {
-    const ref = this.$fire.database.ref(`dispositivos/${dispositivoKey}`)
-    return await ref.transaction(function (dispositivo) {
-      dispositivo.temp++
-
-      return dispositivo
-    })
-  }),
-  decrementTemp: firebaseAction(async function (context, dispositivoKey) {
-    const ref = this.$fire.database.ref(`dispositivos/${dispositivoKey}`)
-    return await ref.transaction(function (dispositivo) {
-      dispositivo.temp--
-
-      return dispositivo
-    })
-  }),
-  setStatus: firebaseAction(async function (context, dispositivoKey) {
-    const ref = this.$fire.database.ref(`dispositivos/${dispositivoKey}`)
-    return await ref.transaction(function (dispositivo) {
-      dispositivo.status = !dispositivo.status
-
-      return dispositivo
-    })
-  }),
   async checkDispositivosAlreadyExists (context, dispositivoKey) {
     const result = await this.$fire.database.ref(`/dispositivos/${dispositivoKey}`).once('value')
     return result.val()
