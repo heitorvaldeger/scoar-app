@@ -3,37 +3,32 @@
     <v-card-title>
       {{ data['.key'] }}
       <v-chip
-        v-if="data.status"
         class="mx-2"
-        color="green"
+        :color="data.status ? 'green' : 'red darken-4'"
         small
         text-color="white"
+        @click="updateStatus"
       >
-        Online
-      </v-chip>
-      <v-chip
-        v-if="!data.status"
-        class="mx-2"
-        color="red darken-4"
-        small
-        text-color="white"
-      >
-        Offline
+        {{ data.status ? 'Online' : 'Offline' }}
       </v-chip>
     </v-card-title>
     <v-card-subtitle>
-      C22 - Sala de Aula
+      {{ local.id + ' | ' + local.nome }}
     </v-card-subtitle>
 
     <v-card-text>
       <v-row>
         <v-col>
           <radial-progress-bar
+            :animate-speed="200"
             :diameter="80"
-            :completed-steps="completedSteps"
+            :completed-steps="calcProgress"
             :total-steps="totalSteps"
             :stroke-width="6"
             :inner-stroke-width="6"
+            start-color="#00897b"
+            stop-color="#00897b"
+            inner-stroke-color="#ddd"
           >
             <p class="mb-0" style="font-size: 13pt; font-weight: 700;">
               {{ data.temp }} ºC
@@ -41,14 +36,14 @@
           </radial-progress-bar>
         </v-col>
         <v-col>
-          <v-btn class="mb-1" depressed color="white">
+          <v-btn class="mb-1" depressed color="white" :disabled="data.temp >= 30" @click="incrementTemp">
             <v-icon color="gray">
-              mdi-arrow-up-circle
+              mdi-plus-box
             </v-icon>
           </v-btn>
-          <v-btn depressed color="white">
+          <v-btn depressed color="white" :disabled="data.temp <= 16" @click="decrementTemp">
             <v-icon color="gray">
-              mdi-arrow-down-circle
+              mdi-minus-box
             </v-icon>
           </v-btn>
         </v-col>
@@ -73,14 +68,42 @@ export default {
   },
   data () {
     return ({
-      completedSteps: 0,
-      totalSteps: 10,
-      dispositivo: {}
+      completedSteps: 1,
+      totalSteps: 15,
+      dispositivoId: '',
+      local: {}
     })
   },
+  computed: {
+    calcProgress () {
+      const progress = 15 - (30 - this.data.temp)
+      return progress
+    }
+  },
   created () {
-    this.dispositivo.id = this.data['.key']
-    this.dispositivo = Object.assign(this.dispositivo, this.data)
+    this.dispositivoId = this.data['.key']
+
+    this.$store.dispatch('locais/getLocal', this.data.local)
+      .then((value) => {
+        this.local = value
+      })
+  },
+  methods: {
+    incrementTemp () {
+      this.$store.dispatch('dispositivos/ar-condicionado/incrementTemp', this.dispositivoId)
+        .then(() => {
+          this.completedSteps++
+        })
+    },
+    decrementTemp () {
+      this.$store.dispatch('dispositivos/ar-condicionado/decrementTemp', this.dispositivoId)
+        .then(() => {
+          this.completedSteps--
+        })
+    },
+    updateStatus () {
+      this.$store.dispatch('dispositivos/ar-condicionado/updateStatus', this.dispositivoId)
+    }
   }
 }
 </script>
