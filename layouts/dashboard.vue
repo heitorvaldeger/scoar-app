@@ -66,21 +66,21 @@
         </v-icon>
       </v-btn>
 
-      <v-btn v-if="isAdmin" to="dispositivos">
+      <v-btn v-if="isAdmin" to="dispositivos" nuxt>
         <span>Dispositivos</span>
         <v-icon>
           mdi-devices
         </v-icon>
       </v-btn>
 
-      <v-btn v-if="isAdmin" to="locais">
+      <v-btn v-if="isAdmin" to="locais" nuxt>
         <span>Locais</span>
         <v-icon>
           mdi-map-marker
         </v-icon>
       </v-btn>
 
-      <v-btn v-if="isAdmin" to="users">
+      <v-btn v-if="isAdmin" to="users" nuxt>
         <span>Usuários</span>
         <v-icon>
           mdi-account-group
@@ -118,7 +118,7 @@ export default {
     signOut () {
       this.$store.dispatch('auth/signOut')
         .then(() => {
-          this.$router.replace('/login')
+          this.$router.push('login')
         })
     },
     userUpdateEmail () {
