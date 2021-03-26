@@ -46,14 +46,32 @@
                 </v-col>
               </v-row>
               <v-row>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="local.apelidos"
-                    color="dark"
-                    label="Apelidos"
-                    hint="Ex.: MSI 4º Ano, Alimentos 1º Ano"
-                  />
-                </v-col>
+                <v-sheet
+                  outlined
+                  width="100%"
+                  class="my-5"
+                >
+                  <v-col cols="12">
+                    <v-chip
+                      v-for="(apelido, index) in local.apelidos"
+                      :key="index"
+                      close
+                      small
+                      class="mr-2"
+                      @click:close="removeApelido(index)"
+                    >
+                      {{ apelido }}
+                    </v-chip>
+                    <v-text-field
+                      v-model="apelido"
+                      color="dark"
+                      label="Apelidos"
+                      hint="Ex.: MSI 4º Ano, Alimentos 1º Ano"
+                      append-icon="mdi-plus-circle"
+                      @click:append="addApelido"
+                    />
+                  </v-col>
+                </v-sheet>
               </v-row>
               <v-row justify="end">
                 <v-btn color="black darken-1" text @click="closeDialog">
@@ -82,19 +100,29 @@ export default {
   props: {
     data: {
       type: Object,
-      default: () => ({})
+      default: () => ({
+        id: '',
+        nome: '',
+        apelidos: []
+      })
     }
   },
   data: () => ({
-    local: {},
+    local: {
+      id: '',
+      nome: '',
+      apelidos: []
+    },
     localKey: '',
     isEdit: false,
-    loading: false
+    loading: false,
+    apelido: ''
   }),
   beforeMount () {
     if (this.data) {
       this.isEdit = true
       this.local = Object.assign({}, this.data)
+      this.local.apelidos = Object.assign([], this.data.apelidos)
       this.localKey = this.data['.key']
     }
   },
@@ -156,6 +184,15 @@ export default {
               this.loading = false
             })
         })
+    },
+    addApelido () {
+      if (this.apelido.trim()) {
+        this.local.apelidos.push(this.apelido)
+        this.apelido = ''
+      }
+    },
+    removeApelido (index) {
+      this.local.apelidos.splice(index, 1)
     }
   }
 }
