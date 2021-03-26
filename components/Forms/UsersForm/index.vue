@@ -76,7 +76,7 @@
 import ModalBase from '~/components/Globals/ModalBase.vue'
 
 export default {
-  name: 'UsersAdd',
+  name: 'UsersForm',
   components: {
     ModalBase
   },
