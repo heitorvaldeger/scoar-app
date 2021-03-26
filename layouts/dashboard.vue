@@ -89,7 +89,7 @@
     </v-bottom-navigation>
 
     <component :is="dialogName || null" :data="dialogData" />
-    <notifications position="bottom center" />
+    <notifications position="top center" style="margin-top: 10px;" />
   </v-app>
 </template>
 
