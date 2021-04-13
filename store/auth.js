@@ -6,6 +6,10 @@ export const getters = {
   isAdmin (state) {
     if (!state.user) { return }
     return !!state.user.isAdmin
+  },
+  getUsername (state) {
+    if (!state.user) { return }
+    return state.user.displayName
   }
 }
 

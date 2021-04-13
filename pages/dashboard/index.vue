@@ -31,7 +31,7 @@
         <template v-if="tipoSelected === 1">
           <v-row>
             <v-col v-for="item in dispositivos" :key="item.id" cols="auto">
-              <ar-condicionado-componente :data="item" />
+              <ar-condicionado-card :data="item" />
             </v-col>
           </v-row>
         </template>
