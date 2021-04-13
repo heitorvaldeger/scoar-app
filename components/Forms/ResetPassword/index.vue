@@ -1,7 +1,7 @@
 <template>
   <modal-base @close="closeDialog">
     <template v-slot:header>
-      <span class="headline">Novo Local</span>
+      <span class="headline">Atualizar senha</span>
     </template>
 
     <template v-slot:content>
@@ -13,47 +13,25 @@
           >
             <v-row>
               <v-col cols="12">
-                <ValidationProvider v-slot="{ errors }" name="ID" rules="required">
+                <ValidationProvider v-slot="{ errors }" name="Email" rules="required">
                   <v-text-field
-                    v-model="local.id"
-                    label="ID do Local"
-                    hint="Ex.: C22, A28"
+                    v-model="email"
+                    label="Email do Usuário"
+                    hint="Digite o seu email para recuperar a senha"
                     required
-                    color="dark"
+                    color="black"
+                    type="email"
                     :error-messages="errors"
                   />
                 </ValidationProvider>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12">
-                <ValidationProvider v-slot="{ errors }" name="Nome" rules="required">
-                  <v-text-field
-                    v-model="local.nome"
-                    color="dark"
-                    label="Nome do Local"
-                    hint="Ex.: Lab de Informática, Lab de Eletrônica"
-                    :error-messages="errors"
-                  />
-                </ValidationProvider>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12">
-                <v-text-field
-                  v-model="local.apelidos"
-                  color="dark"
-                  label="Apelidos"
-                  hint="Ex.: MSI 4º Ano, Alimentos 1º Ano"
-                />
               </v-col>
             </v-row>
             <v-row justify="end">
               <v-btn color="black darken-1" text @click="closeDialog">
                 Cancel
               </v-btn>
-              <v-btn color="blue darken-1" dark type="submit" :loading="loading">
-                Save
+              <v-btn color="black darken-1" dark type="submit" :loading="loading">
+                Enviar
               </v-btn>
             </v-row>
           </v-form>
@@ -67,19 +45,19 @@
 import ModalBase from '~/components/Globals/ModalBase.vue'
 
 export default {
-  name: 'LocaisAdd',
+  name: 'ResetPasswordForm',
   components: {
     ModalBase
   },
   data: () => ({
-    local: {},
+    email: '',
     loading: false
   }),
   methods: {
     closeDialog () {
       this.$store.commit('dialog/DIALOG_CLOSE')
       this.$refs.form.reset()
-      this.local = {}
+      this.email = ''
     },
     onSubmit () {
       this.$refs.form.validate()
@@ -87,11 +65,11 @@ export default {
           if (!success) { return }
 
           this.loading = true
-          this.$store.dispatch('locais/addLocal', this.local)
+          this.$store.dispatch('auth/resetPassword', this.email)
             .then(() => {
               this.$notify({
                 type: 'success',
-                title: 'Local adicionado com sucesso',
+                title: 'Email enviado com sucesso',
                 closeOnClick: true
               })
             })
@@ -103,11 +81,17 @@ export default {
               })
             })
             .finally(() => {
-              this.closeDialog()
               this.loading = false
+              this.closeDialog()
             })
         })
     }
   }
 }
 </script>
+
+<style scoped>
+  .btn-password {
+    text-transform: none;
+  }
+</style>

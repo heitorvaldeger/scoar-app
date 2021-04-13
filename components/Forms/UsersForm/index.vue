@@ -1,21 +1,24 @@
 <template>
   <modal-base @close="closeDialog">
     <template v-slot:header>
-      <span class="headline">Editar Local</span>
+      <span class="headline">Novo Usuário</span>
     </template>
 
     <template v-slot:content>
       <v-container>
         <ValidationObserver ref="form">
-          <v-form autocomplete="off" @submit.prevent="onSubmit">
+          <v-form
+            autocomplete="off"
+            @submit.prevent="onSubmit"
+          >
             <v-row>
               <v-col cols="12">
-                <ValidationProvider v-slot="{ errors }" name="ID" rules="required">
+                <ValidationProvider v-slot="{ errors }" name="Nome" rules="required">
                   <v-text-field
-                    v-model="local.id"
+                    v-model="user.nome"
+                    label="Nome do usuário"
+                    required
                     color="black"
-                    label="ID do Local"
-                    hint="Ex.: C22, A28"
                     :error-messages="errors"
                   />
                 </ValidationProvider>
@@ -23,12 +26,11 @@
             </v-row>
             <v-row>
               <v-col cols="12">
-                <ValidationProvider v-slot="{ errors }" name="ID" rules="required">
+                <ValidationProvider v-slot="{ errors }" name="Email do Usuário" rules="required">
                   <v-text-field
-                    v-model="local.nome"
+                    v-model="user.email"
+                    label="Email do Usuário"
                     color="black"
-                    label="Nome do Local"
-                    hint="Ex.: Lab de Informática, Lab de Eletrônica"
                     :error-messages="errors"
                   />
                 </ValidationProvider>
@@ -36,11 +38,22 @@
             </v-row>
             <v-row>
               <v-col cols="12">
-                <v-text-field
-                  v-model="local.apelidos"
-                  color="black"
-                  label="Apelidos"
-                  hint="Ex.: MSI 4º Ano, Alimentos 1º Ano"
+                <ValidationProvider v-slot="{ errors }" name="Matrícula do Usuário" rules="required">
+                  <v-text-field
+                    v-model="user.matricula"
+                    label="Matrícula do Usuário"
+                    hint="A matrícula do usuário será sua senha no sistema"
+                    color="black"
+                    :error-messages="errors"
+                  />
+                </ValidationProvider>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12">
+                <v-checkbox
+                  v-model="user.admin"
+                  label="Administrador"
                 />
               </v-col>
             </v-row>
@@ -63,29 +76,19 @@
 import ModalBase from '~/components/Globals/ModalBase.vue'
 
 export default {
-  name: 'LocaisEdit',
+  name: 'UsersForm',
   components: {
     ModalBase
   },
-  props: {
-    data: {
-      type: Object,
-      default: () => ({})
-    }
-  },
   data: () => ({
-    local: {},
+    user: {},
     loading: false
   }),
-  mounted () {
-    this.local = Object.assign({}, this.data)
-    this.local.key = this.data['.key']
-  },
   methods: {
     closeDialog () {
       this.$store.commit('dialog/DIALOG_CLOSE')
       this.$refs.form.reset()
-      this.local = {}
+      this.user = {}
     },
     onSubmit () {
       this.$refs.form.validate()
@@ -93,11 +96,11 @@ export default {
           if (!success) { return }
 
           this.loading = true
-          this.$store.dispatch('locais/editLocal', this.local)
+          this.$store.dispatch('users/addUser', this.user)
             .then(() => {
               this.$notify({
                 type: 'success',
-                title: 'Local editado com sucesso',
+                title: 'Usuário criado com sucesso',
                 closeOnClick: true
               })
             })
@@ -109,8 +112,8 @@ export default {
               })
             })
             .finally(() => {
-              this.closeDialog()
               this.loading = false
+              this.closeDialog()
             })
         })
     }

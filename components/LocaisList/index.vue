@@ -25,6 +25,13 @@
         </v-btn>
       </v-toolbar>
     </template>
+
+    <template v-slot:item.apelidos="{ item }">
+      <v-chip v-for="(apelido, index) in item.apelidos" :key="index" class="mr-2" small>
+        {{ apelido }}
+      </v-chip>
+    </template>
+
     <template v-slot:item.actions="{ item }">
       <v-btn icon @click="locaisEdit(item)">
         <v-icon small>

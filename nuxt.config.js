@@ -43,7 +43,7 @@ export default {
   ** See https://nuxtjs.org/api/configuration-head
   */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
+    titleTemplate: process.env.npm_package_name,
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
@@ -105,8 +105,7 @@ export default {
     config: firebaseConfig,
     services: {
       database: true,
-      functions: (process.env.NODE_ENV !== 'production')
-        ? firebaseFunctionsConfig : true,
+      functions: (process.env.NODE_ENV !== 'production') ? firebaseFunctionsConfig : true,
       auth: {
         persistence: 'local', // default
         initialize: {
