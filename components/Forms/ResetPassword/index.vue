@@ -45,7 +45,7 @@
 import ModalBase from '~/components/Globals/ModalBase.vue'
 
 export default {
-  name: 'ResetPassword',
+  name: 'ResetPasswordForm',
   components: {
     ModalBase
   },
