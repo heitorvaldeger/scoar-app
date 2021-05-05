@@ -15,10 +15,7 @@ exports.createNewUser = functions.https.onCall(async (data, context) => {
       password: data.matricula
     })
     if (data.admin) {
-      return admin.auth().setCustomUserClaims(user.uid, { admin: true })
-        .then(() => {
-          return user
-        })
+      await admin.auth().setCustomUserClaims(user.uid, { admin: true })
     }
     return user
   } catch (err) {
