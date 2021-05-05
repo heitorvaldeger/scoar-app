@@ -38,11 +38,6 @@
           mdi-pencil
         </v-icon>
       </v-btn>
-      <v-btn icon @click="remove(item['.key'])">
-        <v-icon small>
-          mdi-delete
-        </v-icon>
-      </v-btn>
     </template>
   </v-data-table>
 </template>
@@ -89,23 +84,6 @@ export default {
         component: 'LocaisForm',
         data: local
       })
-    },
-    remove (itemKey) {
-      this.$store.dispatch('locais/deleteLocal', itemKey)
-        .then(() => {
-          this.$notify({
-            type: 'success',
-            title: 'Objeto removido com sucesso',
-            closeOnClick: true
-          })
-        })
-        .catch((err) => {
-          this.$notify({
-            type: 'error',
-            title: err.message,
-            closeOnClick: true
-          })
-        })
     }
   }
 }
