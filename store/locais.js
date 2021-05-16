@@ -26,9 +26,5 @@ export const actions = {
     await ref.update({
       ...rest
     })
-  }),
-  deleteLocal: firebaseAction(async function (context, localKey) {
-    const ref = this.$fire.database.ref(`locais/${localKey}`)
-    await ref.remove()
   })
 }
