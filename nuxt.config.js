@@ -97,8 +97,8 @@ export default {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt/content
     // '@nuxt/content',
-    '@nuxtjs/firebase'
-    // '@nuxtjs/axios'
+    '@nuxtjs/firebase',
+    '@nuxtjs/axios'
   ],
 
   firebase: {
