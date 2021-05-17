@@ -102,7 +102,7 @@ export default {
   ],
 
   axios: {
-    baseURL: 'http://localhost:3333/',
+    baseURL: (process.env.NODE_ENV !== 'production') ? 'http://localhost:3333/' : 'https://scoar-app-hub.herokuapp.com/',
     headers: {
       common: {
         Accept: 'application/json'
