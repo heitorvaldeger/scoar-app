@@ -3,7 +3,7 @@ import colors from 'vuetify/es5/util/colors'
 const firebaseConfig = {
   apiKey: 'AIzaSyDi7FTJplxdcfOjRdkq4in0MsA-MSRLULc',
   authDomain: 'scoar-app.firebaseapp.com',
-  databaseURL: (process.env.NODE_ENV === 'production')
+  databaseURL: (process.env.NODE_ENV !== 'production')
     ? 'https://scoar-app.firebaseio.com'
     : 'http://localhost:9000?ns=fake-server',
   projectId: 'scoar-app',
@@ -76,7 +76,8 @@ export default {
     dirs: [
       '~/components',
       '~/components/Dispositivos',
-      '~/components/Forms'
+      '~/components/Forms',
+      '~/components/Cards'
     ]
   },
 
