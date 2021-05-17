@@ -56,7 +56,7 @@
 import RadialProgressBar from 'vue-radial-progress'
 
 export default {
-  name: 'ArCondicionadoComponente',
+  name: 'ArCondicionadoCard',
   components: {
     RadialProgressBar
   },

@@ -78,6 +78,21 @@
 <script>
 import { mapState } from 'vuex'
 
+const errorsLoginFirebase = [
+  {
+    code: 'auth/invalid-email',
+    message: 'Endereço de email inválido'
+  },
+  {
+    code: 'auth/user-not-found',
+    message: 'Email ou senha incorretos'
+  },
+  {
+    code: 'auth/wrong-password',
+    message: 'Email ou senha incorretos'
+  }
+]
+
 export default {
   name: 'Login',
   middleware: 'guest',
@@ -114,9 +129,11 @@ export default {
           this.loading = true
           this.$store.dispatch('auth/signIn', this.user)
             .catch((err) => {
+              const error = errorsLoginFirebase.find(item => item.code === err.code)
+
               this.$notify({
                 type: 'error',
-                title: err.message,
+                title: error.message,
                 closeOnClick: true
               })
               this.loading = false
