@@ -101,6 +101,15 @@ export default {
     '@nuxtjs/axios'
   ],
 
+  axios: {
+    baseURL: 'http://localhost:3333/',
+    headers: {
+      common: {
+        Accept: 'application/json'
+      }
+    }
+  },
+
   firebase: {
     config: firebaseConfig,
     services: {
