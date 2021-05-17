@@ -6,16 +6,19 @@ export const state = () => ({
 
 export const actions = {
   getUsers: firebaseAction(async function ({ commit }) {
-    const res = await this.$fire.functions.httpsCallable('getListUsers')()
-    commit('SET_USERS', res.data.users)
+    const response = await this.$axios.get('users')
+
+    commit('SET_USERS', response.data.users)
   }),
-  addUser: firebaseAction(async function ({ commit }, user) {
-    const res = await this.$fire.functions.httpsCallable('createNewUser')(user)
-    commit('ADD_USER', res.data)
+  addUser: firebaseAction(function ({ commit }, user) {
+    return this.$axios.post('users', user)
+      .then((response) => {
+        commit('ADD_USER', response.data.user)
+      })
   }),
   deleteUser: firebaseAction(async function ({ commit }, uid) {
-    const res = await this.$fire.functions.httpsCallable('deleteUser')({ uid })
-    commit('DELETE_USER', res.data)
+    const response = await this.$axios.delete(`users/${uid}`)
+    commit('DELETE_USER', response.data.uid)
   }),
   updateEmail: firebaseAction(async function (ctx, user) {
     const currentUser = this.$fire.auth.currentUser
