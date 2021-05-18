@@ -10,7 +10,7 @@ import DispositivosList from '~/components/DispositivosList'
 export default {
   name: 'DispositivosPage',
   layout: 'dashboard',
-  middleware: 'auth',
+  middleware: ['auth', 'routers-private'],
   components: {
     DispositivosList
   },
