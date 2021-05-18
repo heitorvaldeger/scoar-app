@@ -17,6 +17,6 @@ na execução do sistema.
 - **Hosting**: módulo de hospedagem para o projeto.
 
 ### Hub (Backend)
-Foi construído um Hub, que permite a execução de funções no backend de manipulação de usuários e eventos em massa, pro exemplo.
+Foi construído um Hub, que permite a execução de funções no backend de manipulação de usuários e eventos em massa, por exemplo.
 
 Devido as novas políticas adotadas pelo firebase para a execução de Cloud Functions, foi necessário o desenvolvimento desta entidade.
