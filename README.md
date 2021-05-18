@@ -4,60 +4,19 @@
 A proposta do app é de controlar os aparelhos de ar condicionado do IFRN Campus Currais Novos através de uma aplicação web.
 A aplicação está disponível em:  https://scoar-app.firebaseapp.com
 
-## Recursos utilizados
-
-- Firebase Database
-- Firebase Authentication
-- Firebase Hosting
-- Firebase Cloud Functions
-- Nuxt JS
-- Arduino IDE (ESP32)
-
-## Endpoints
+## Entidades envolvidas
 
 ### Cliente Web
-O cliente foi desenvolvido em Nuxt JS utilizando o SDK fornecido pelo Firebase. Seu principal objetivo é fornecer uma interface intuitiva que permita manipular o estado dos aparelhos instalados no IFRN Campus Currais Novos.
+O cliente foi desenvolvido em Nuxt JS utilizando o SDK fornecido pelo Firebase. Seu principal objetivo é fornecer uma interface intuitiva que permita manipular o estado dos aparelhos instalados no IFRN Campus Currais Novos, bem como outros requisitos que fazem parte do escopo do projeto.
 
-Instruções para execução:
+### Firebase
+Foram utilizados os seguintes módulos do Firebase: 
+- **Realtime Database**: para o armazenamento das informações necessárias
+na execução do sistema.
+- **Authentication**: módulo de autenticação do firebase, utilizando o provedor email/senha.
+- **Hosting**: módulo de hospedagem para o projeto.
 
-- Clone o repositório:
+### Hub (Backend)
+Foi construído um Hub, que permite a execução de funções no backend de manipulação de usuários e eventos em massa, pro exemplo.
 
-      git clone https://github.com/heitorvaldeger/scoar-app.git
-
-- Instale as dependências do projeto:
-
-      npm install
-
-- Configure as variáveis do firebase de acordo com seu projeto (arquivo nuxt.config.js)
-    
-    ```js
-    // Firebase Project
-    const firebaseConfig = {
-      apiKey: '',
-      authDomain: '',
-      databaseURL: (process.env.NODE_ENV === 'production')
-        ? 'URL do Banco de Produção'
-        : 'URL do Banco de Testes',
-      projectId: '',
-      storageBucket: '',
-      messagingSenderId: '',
-      appId: '',
-      measurementId: ''
-    }
-
-    // Firebase Functions
-    const firebaseFunctionsConfig = {
-      location: '',
-      emulatorPort: 5001,
-      emulatorHost: 'http://localhost'
-    }
-    ```
-
-- Executando o servidor (Desenvolvimento)
-
-       npm run dev
-
-Executando o firebase para ambiente de testes
-
-      Instale o pacote firebase-tools globalmente:
-      npm install -g firebase-tools
+Devido as novas políticas adotadas pelo firebase para a execução de Cloud Functions, foi necessário o desenvolvimento desta entidade.
