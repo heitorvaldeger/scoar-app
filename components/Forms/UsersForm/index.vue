@@ -1,7 +1,7 @@
 <template>
   <modal-base @close="closeDialog">
     <template v-slot:header>
-      <span class="headline">Atualizar Email</span>
+      <span class="headline">Novo Usuário</span>
     </template>
 
     <template v-slot:content>
@@ -13,10 +13,10 @@
           >
             <v-row>
               <v-col cols="12">
-                <ValidationProvider v-slot="{ errors }" name="Email Atual" rules="required">
+                <ValidationProvider v-slot="{ errors }" name="Nome" rules="required">
                   <v-text-field
-                    v-model="email"
-                    label="Email Atual"
+                    v-model="user.displayName"
+                    label="Nome do usuário"
                     required
                     color="black"
                     :error-messages="errors"
@@ -26,11 +26,10 @@
             </v-row>
             <v-row>
               <v-col cols="12">
-                <ValidationProvider v-slot="{ errors }" name="Novo Email" rules="required">
+                <ValidationProvider v-slot="{ errors }" name="Email do Usuário" rules="required">
                   <v-text-field
-                    v-model="novo_email"
-                    label="Novo Email"
-                    required
+                    v-model="user.email"
+                    label="Email do Usuário"
                     color="black"
                     :error-messages="errors"
                   />
@@ -39,17 +38,23 @@
             </v-row>
             <v-row>
               <v-col cols="12">
-                <ValidationProvider v-slot="{ errors }" name="Confirmar Senha" rules="required">
+                <ValidationProvider v-slot="{ errors }" name="Matrícula do Usuário" rules="required">
                   <v-text-field
-                    v-model="password"
-                    type="password"
-                    label="Digite sua senha"
-                    hint="Para finalizar este processo é necessário informar a senha atual"
-                    required
+                    v-model="user.matricula"
+                    label="Matrícula do Usuário"
+                    hint="A matrícula do usuário será sua senha no sistema"
                     color="black"
                     :error-messages="errors"
                   />
                 </ValidationProvider>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12">
+                <v-checkbox
+                  v-model="user.admin"
+                  label="Administrador"
+                />
               </v-col>
             </v-row>
             <v-row justify="end">
@@ -71,21 +76,19 @@
 import ModalBase from '~/components/Globals/ModalBase.vue'
 
 export default {
-  name: 'UserUpdateEmail',
+  name: 'UsersForm',
   components: {
     ModalBase
   },
   data: () => ({
-    email: '',
-    novo_email: '',
-    password: '',
+    user: {},
     loading: false
   }),
   methods: {
     closeDialog () {
       this.$store.commit('dialog/DIALOG_CLOSE')
       this.$refs.form.reset()
-      this.email = this.novo_email = this.password = ''
+      this.user = {}
     },
     onSubmit () {
       this.$refs.form.validate()
@@ -93,28 +96,24 @@ export default {
           if (!success) { return }
 
           this.loading = true
-          this.$store.dispatch('users/updateEmail', {
-            email: this.email,
-            password: this.password,
-            novo_email: this.novo_email
-          })
+          this.$store.dispatch('users/addUser', this.user)
             .then(() => {
               this.$notify({
                 type: 'success',
-                title: 'Email atualizado com sucesso',
+                title: 'Usuário criado com sucesso',
                 closeOnClick: true
               })
             })
             .catch((err) => {
               this.$notify({
                 type: 'error',
-                title: err.message,
+                title: err.response.data.message,
                 closeOnClick: true
               })
             })
             .finally(() => {
-              this.closeDialog()
               this.loading = false
+              this.closeDialog()
             })
         })
     }

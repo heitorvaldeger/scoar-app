@@ -25,15 +25,17 @@
         </v-btn>
       </v-toolbar>
     </template>
+
+    <template v-slot:item.apelidos="{ item }">
+      <v-chip v-for="(apelido, index) in item.apelidos" :key="index" class="mr-2" small>
+        {{ apelido }}
+      </v-chip>
+    </template>
+
     <template v-slot:item.actions="{ item }">
       <v-btn icon @click="locaisEdit(item)">
         <v-icon small>
           mdi-pencil
-        </v-icon>
-      </v-btn>
-      <v-btn icon @click="remove(item['.key'])">
-        <v-icon small>
-          mdi-delete
         </v-icon>
       </v-btn>
     </template>
@@ -82,23 +84,6 @@ export default {
         component: 'LocaisForm',
         data: local
       })
-    },
-    remove (itemKey) {
-      this.$store.dispatch('locais/deleteLocal', itemKey)
-        .then(() => {
-          this.$notify({
-            type: 'success',
-            title: 'Objeto removido com sucesso',
-            closeOnClick: true
-          })
-        })
-        .catch((err) => {
-          this.$notify({
-            type: 'error',
-            title: err.message,
-            closeOnClick: true
-          })
-        })
     }
   }
 }
