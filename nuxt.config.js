@@ -76,7 +76,8 @@ export default {
     dirs: [
       '~/components',
       '~/components/Dispositivos',
-      '~/components/Forms'
+      '~/components/Forms',
+      '~/components/Cards'
     ]
   },
 
