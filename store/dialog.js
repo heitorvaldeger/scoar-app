@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 export const state = () => ({
   open: false,
   component: null,
@@ -15,7 +13,7 @@ export const getters = {
 export const mutations = {
   DIALOG_OPEN (state, payload) {
     const { component, data } = payload
-    state.component = Vue.component(component, () => import(`~/components/Forms/${component}`))
+    state.component = () => import('~/components/Forms/' + component)
     state.data = data || null
     state.open = true
   },

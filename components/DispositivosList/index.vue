@@ -48,6 +48,12 @@
       {{ getTipoDispositivo(item.tipo) }}
     </template>
 
+    <template v-slot:item.status="{ item }">
+      <v-chip :color="item.status ? 'green' : 'red darken-4'" dark>
+        {{ item.status ? 'Online' : 'Offline' }}
+      </v-chip>
+    </template>
+
     <template v-slot:item.actions="{ item }">
       <v-btn icon @click="dispositivosEdit(item)">
         <v-icon small>
@@ -78,6 +84,7 @@ export default {
         value: '.key'
       },
       { text: 'Tipo', value: 'tipo', align: 'center' },
+      { text: 'Status', value: 'status', align: 'center' },
       { text: 'Actions', value: 'actions', sortable: false, align: 'center' }
     ],
     tiposDispositivosList: [

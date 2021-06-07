@@ -6,7 +6,7 @@
           <v-card-title class="justify-center">
             <img src="~/assets/images/ifrn-logo.png" width="240">
           </v-card-title>
-          <h1 style="font-size: 25pt;" class="my-5 px-4" v-if="error.statusCode === 404">
+          <h1 v-if="error.statusCode === 404" style="font-size: 25pt;" class="my-5 px-4">
             {{ pageNotFound }}
           </h1>
 
