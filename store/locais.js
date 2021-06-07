@@ -26,5 +26,8 @@ export const actions = {
     await ref.update({
       ...rest
     })
-  })
+  }),
+  async deleteLocal (context, local) {
+    return await this.$axios.delete(`locais/${local['.key']}`)
+  }
 }
