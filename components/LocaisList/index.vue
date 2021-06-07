@@ -38,6 +38,11 @@
           mdi-pencil
         </v-icon>
       </v-btn>
+      <v-btn icon @click="locaisDelete(item)">
+        <v-icon small>
+          mdi-delete
+        </v-icon>
+      </v-btn>
     </template>
   </v-data-table>
 </template>
@@ -84,6 +89,22 @@ export default {
         component: 'LocaisForm',
         data: local
       })
+    },
+    locaisDelete (local) {
+      const response = confirm('Deseja realmente remover este local?')
+
+      if (response) {
+        this.$store.dispatch('locais/deleteLocal', local)
+          .then(({ status }) => {
+            if (status === 204) {
+              this.$notify({
+                type: 'success',
+                title: 'Local removido com sucesso',
+                closeOnClick: true
+              })
+            }
+          })
+      }
     }
   }
 }
