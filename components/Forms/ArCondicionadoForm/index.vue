@@ -28,6 +28,7 @@
                       color="black darken-1"
                       required
                       :error-messages="errors"
+                      :disabled="isEdit"
                     />
                   </ValidationProvider>
                 </v-col>
@@ -87,20 +88,20 @@ export default {
       status: false,
       temp: 16
     },
-    isEdit: false,
-    loading: false,
-    idEditing: ''
+    loading: false
   }),
   computed: {
+    isEdit () {
+      return !!this.data
+    },
     ...mapState({
       locais: state => state.locais.all
     })
   },
   beforeMount () {
     if (this.data) {
-      this.isEdit = true
-      this.dispositivo = Object.assign({}, this.data)
-      this.idEditing = this.dispositivo.id = this.data['.key']
+      this.dispositivo = { ...this.dispositivo, ...this.data }
+      this.dispositivo.id = this.data['.key']
     }
   },
   methods: {
@@ -111,32 +112,13 @@ export default {
     },
     onSubmit () {
       this.$refs.form.validate()
-        .then(async (success) => {
+        .then((success) => {
           if (!success) { return }
-
-          const dispositivoExist =
-            await this.$store.dispatch(
-              'dispositivos/checkDispositivosAlreadyExists',
-              this.dispositivo.id.toUpperCase()
-            )
-
-          if (dispositivoExist) {
-            this.$notify({
-              type: 'error',
-              title: 'Este dispositivo já existe',
-              closeOnClick: true
-            })
-
-            return
-          }
 
           this.loading = true
 
           if (this.isEdit) {
-            this.$store.dispatch('dispositivos/editDispositivo', {
-              id: this.idEditing,
-              ...this.dispositivo
-            })
+            this.$store.dispatch('dispositivos/editDispositivo', this.dispositivo)
               .then(() => {
                 this.$notify({
                   type: 'success',
