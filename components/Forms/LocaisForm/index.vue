@@ -6,7 +6,7 @@
           {{
             !isEdit
               ? 'Novo local'
-              : 'Editando - ' + local.id
+              : 'Editando - ' + idText
           }}
         </span>
       </template>
@@ -58,12 +58,12 @@
                       close
                       small
                       class="mr-2"
-                      @click:close="removeApelido(index)"
+                      @click:close="deleteApelido(index)"
                     >
                       {{ apelido }}
                     </v-chip>
                     <v-text-field
-                      v-model="apelido"
+                      v-model="apelidoText"
                       color="dark"
                       label="Apelidos"
                       hint="Ex.: MSI 4º Ano, Alimentos 1º Ano"
@@ -100,11 +100,7 @@ export default {
   props: {
     data: {
       type: Object,
-      default: () => ({
-        id: '',
-        nome: '',
-        apelidos: []
-      })
+      default: () => ({})
     }
   },
   data: () => ({
@@ -114,15 +110,19 @@ export default {
       apelidos: []
     },
     localKey: '',
-    isEdit: false,
     loading: false,
-    apelido: ''
+    idText: '',
+    apelidoText: ''
   }),
+  computed: {
+    isEdit () {
+      return !!this.data
+    }
+  },
   beforeMount () {
     if (this.data) {
-      this.isEdit = true
-      this.local = Object.assign({}, this.data)
-      this.local.apelidos = Object.assign([], this.data.apelidos)
+      this.local = { ...this.local, ...this.data }
+      this.idText = this.data.id
       this.localKey = this.data['.key']
     }
   },
@@ -139,59 +139,65 @@ export default {
 
           this.loading = true
           if (this.isEdit) {
-            this.$store.dispatch('locais/editLocal', {
-              key: this.localKey,
-              ...this.local
-            })
-              .then(() => {
-                this.$notify({
-                  type: 'success',
-                  title: 'Dispositivo editado com sucesso',
-                  closeOnClick: true
-                })
-              })
-              .catch((err) => {
-                this.$notify({
-                  type: 'error',
-                  title: err.message,
-                  closeOnClick: true
-                })
-              })
-              .finally(() => {
-                this.closeDialog()
-                this.loading = false
-              })
+            this.editLocal()
             return
           }
 
-          this.$store.dispatch('locais/addLocal', this.local)
-            .then(() => {
-              this.$notify({
-                type: 'success',
-                title: 'Local adicionado com sucesso',
-                closeOnClick: true
-              })
-            })
-            .catch((err) => {
-              this.$notify({
-                type: 'error',
-                title: err.message,
-                closeOnClick: true
-              })
-            })
-            .finally(() => {
-              this.closeDialog()
-              this.loading = false
-            })
+          this.addLocal()
+        })
+    },
+    addLocal () {
+      this.$store.dispatch('locais/addLocal', this.local)
+        .then(() => {
+          this.$notify({
+            type: 'success',
+            title: 'Local adicionado com sucesso',
+            closeOnClick: true
+          })
+        })
+        .catch((err) => {
+          this.$notify({
+            type: 'error',
+            title: err.message,
+            closeOnClick: true
+          })
+        })
+        .finally(() => {
+          this.closeDialog()
+          this.loading = false
         })
     },
     addApelido () {
-      if (this.apelido.trim()) {
-        this.local.apelidos.push(this.apelido)
-        this.apelido = ''
+      if (this.apelidoText.trim()) {
+        this.local.apelidos.push(this.apelidoText)
+        this.apelidoText = ''
       }
     },
-    removeApelido (index) {
+    editLocal () {
+      this.$store.dispatch('locais/editLocal', {
+        key: this.localKey,
+        ...this.local
+      })
+        .then(() => {
+          this.$notify({
+            type: 'success',
+            title: 'Dispositivo editado com sucesso',
+            closeOnClick: true
+          })
+        })
+        .catch((err) => {
+          this.$notify({
+            type: 'error',
+            title: err.message,
+            closeOnClick: true
+          })
+        })
+        .finally(() => {
+          this.closeDialog()
+          this.loading = false
+        })
+    },
+    deleteApelido (index) {
       this.local.apelidos.splice(index, 1)
     }
   }

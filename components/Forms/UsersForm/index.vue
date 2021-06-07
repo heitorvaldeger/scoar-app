@@ -15,7 +15,7 @@
               <v-col cols="12">
                 <ValidationProvider v-slot="{ errors }" name="Nome" rules="required">
                   <v-text-field
-                    v-model="user.nome"
+                    v-model="user.displayName"
                     label="Nome do usuário"
                     required
                     color="black"
@@ -107,7 +107,7 @@ export default {
             .catch((err) => {
               this.$notify({
                 type: 'error',
-                title: err.message,
+                title: err.response.data.message,
                 closeOnClick: true
               })
             })

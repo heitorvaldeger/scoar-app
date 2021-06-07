@@ -75,8 +75,8 @@ export default {
   components: {
     dirs: [
       '~/components',
-      '~/components/Dispositivos',
-      '~/components/Forms'
+      '~/components/Forms',
+      '~/components/Cards'
     ]
   },
 
@@ -97,9 +97,18 @@ export default {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt/content
     // '@nuxt/content',
-    '@nuxtjs/firebase'
-    // '@nuxtjs/axios'
+    '@nuxtjs/firebase',
+    '@nuxtjs/axios'
   ],
+
+  axios: {
+    baseURL: (process.env.NODE_ENV !== 'production') ? 'http://localhost:3333/' : 'https://scoar-app-hub.herokuapp.com/',
+    headers: {
+      common: {
+        Accept: 'application/json'
+      }
+    }
+  },
 
   firebase: {
     config: firebaseConfig,

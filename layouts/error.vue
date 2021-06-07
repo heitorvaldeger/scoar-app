@@ -1,14 +1,21 @@
 <template>
   <v-app dark>
-    <h1 v-if="error.statusCode === 404">
-      {{ pageNotFound }}
-    </h1>
-    <h1 v-else>
-      {{ otherError }}
-    </h1>
-    <NuxtLink to="/">
-      Home page
-    </NuxtLink>
+    <v-main>
+      <v-container class="fill-height justify-center">
+        <v-card min-width="500" class="text-center py-4">
+          <v-card-title class="justify-center">
+            <img src="~/assets/images/ifrn-logo.png" width="240">
+          </v-card-title>
+          <h1 v-if="error.statusCode === 404" style="font-size: 25pt;" class="my-5 px-4">
+            {{ pageNotFound }}
+          </h1>
+
+          <v-btn to="/dashboard" depressed color="#00897b" dark class="my-2">
+            VOLTAR
+          </v-btn>
+        </v-card>
+      </v-container>
+    </v-main>
   </v-app>
 </template>
 
@@ -23,7 +30,7 @@ export default {
   },
   data () {
     return {
-      pageNotFound: '404 Not Found',
+      pageNotFound: 'Erro 404: Página não encontrada',
       otherError: 'An error occurred'
     }
   },

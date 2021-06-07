@@ -8,6 +8,9 @@
       <img src="~/assets/images/ifrn-logo.png" width="140">
 
       <v-spacer />
+      <h4 v-show="username" class="mx-2">
+        Olá, {{ username }}
+      </h4>
       <v-menu
         top
         close-on-click
@@ -100,7 +103,8 @@ export default {
   layout: 'Dashboard',
   data () {
     return ({
-      isAdmin: false
+      isAdmin: false,
+      username: ''
     })
   },
   computed: {
@@ -113,6 +117,7 @@ export default {
   },
   created () {
     this.isAdmin = this.$store.getters['auth/isAdmin']
+    this.username = this.$store.getters['auth/getUsername']
   },
   methods: {
     signOut () {

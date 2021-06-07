@@ -27,7 +27,6 @@ export const actions = {
   }),
   editDispositivo: firebaseAction(async function (content, dispositivo) {
     const { id, ...rest } = dispositivo
-
     const ref = this.$fire.database.ref(`dispositivos/${id}`)
 
     await ref.update({
@@ -37,9 +36,5 @@ export const actions = {
   deleteDispositivo: firebaseAction(async function (context, dispositivoKey) {
     const ref = this.$fire.database.ref(`dispositivos/${dispositivoKey}`)
     await ref.remove()
-  }),
-  async checkDispositivosAlreadyExists (context, dispositivoKey) {
-    const result = await this.$fire.database.ref(`/dispositivos/${dispositivoKey}`).once('value')
-    return result.val()
-  }
+  })
 }
