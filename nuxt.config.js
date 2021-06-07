@@ -126,7 +126,9 @@ export default {
   },
   pwa: {
     meta: true,
-    icon: true,
+    icon: {
+      source: 'assets/images/if.png'
+    },
     workbox: {
       importScripts: [
         // ...
