@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { useModalPlaceList } from "@/components/Modals/ModalPlaceList/useModalPlaceList";
 import { useModalProtocolList } from "../components/Modals/ModalProtocolList/useModalProtocolList";
+import { useModalPlaceListActions } from "@/components/Modals/ModalPlaceList/useModalPlaceListActions";
 
 export const useToolbarAdministration = () => {
   const title = 'Dispositivos';
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const {
     handleOpenModal: onOpenModalPlaceList
-  } = useModalPlaceList();
+  } = useModalPlaceListActions();
   const {
     handleOpenModal: onOpenModalProtocolList
   } = useModalProtocolList();
