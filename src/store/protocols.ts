@@ -1,0 +1,16 @@
+import { Protocol } from "@/interfaces/Protocol";
+import { atom } from "recoil";
+
+export const protocolsState = atom<Protocol[]>({
+  key: 'protocols-list',
+  default: [
+    {
+      code: 24,
+      name: 'LG',
+    },
+    {
+      code: 30,
+      name: 'GREE',
+    }
+  ]
+})
