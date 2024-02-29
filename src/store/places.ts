@@ -1,4 +1,4 @@
-import { Place } from "@/interfaces/Place";
+import { Place } from "@/interfaces/Entities/Place";
 import { atom } from "recoil";
 
 export const placesState = atom<Place[]>({

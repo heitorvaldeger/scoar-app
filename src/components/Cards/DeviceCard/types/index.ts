@@ -1,4 +1,4 @@
-import { Device } from "@/interfaces/Device";
+import { Device } from "@/interfaces/Entities/Device";
 
 export type DeviceCardProps = {
   device: Device;

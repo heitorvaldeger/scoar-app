@@ -1,4 +1,4 @@
-import { Device } from "@/interfaces/Device";
+import { Device } from "@/interfaces/Entities/Device";
 import { atom } from "recoil";
 
 export const devicesState = atom<Device[]>({

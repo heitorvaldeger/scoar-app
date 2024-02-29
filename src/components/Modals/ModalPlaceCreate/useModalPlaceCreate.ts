@@ -1,4 +1,4 @@
-import { Place } from "@/interfaces/Place";
+import { Place } from "@/interfaces/Entities/Place";
 import { modalPlaceCreateState } from "@/store/modals";
 import { useState } from "react";
 import { useRecoilState } from "recoil";

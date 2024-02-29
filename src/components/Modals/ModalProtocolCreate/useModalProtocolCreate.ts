@@ -1,4 +1,4 @@
-import { Protocol } from "@/interfaces/Protocol";
+import { Protocol } from "@/interfaces/Entities/Protocol";
 import { modalProtocolCreateState } from "@/store/modals";
 import { useState } from "react";
 import { useRecoilState } from "recoil";

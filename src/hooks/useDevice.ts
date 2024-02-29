@@ -1,4 +1,4 @@
-import { Device } from "@/interfaces/Device";
+import { Device } from "@/interfaces/Entities/Device";
 import { devicesState } from "@/store/devices";
 import { useRecoilValue } from "recoil";
 

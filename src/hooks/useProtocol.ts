@@ -1,4 +1,4 @@
-import { Protocol } from "@/interfaces/Protocol";
+import { Protocol } from "@/interfaces/Entities/Protocol";
 import { protocolsState } from "@/store/protocols";
 import { useRecoilState } from "recoil";
 

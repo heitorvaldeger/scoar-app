@@ -1,4 +1,4 @@
-import { Protocol } from "@/interfaces/Protocol";
+import { Protocol } from "@/interfaces/Entities/Protocol";
 import { atom } from "recoil";
 
 export const protocolsState = atom<Protocol[]>({
