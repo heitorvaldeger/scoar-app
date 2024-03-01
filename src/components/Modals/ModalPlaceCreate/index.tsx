@@ -1,47 +1,17 @@
 import { Dialog, DialogActions, DialogContent, Grid } from "@mui/material";
 import { ButtonDefault } from '@/components/Buttons/ButtonDefault';
 import { InputDefault } from '@/components/Inputs/InputDefault';
-import { toast } from 'react-toastify';
 import { useModalPlaceCreate } from '@/components/Modals/ModalPlaceCreate/useModalPlaceCreate';
 
 export const ModalPlaceCreate = () => {
 
   const {
     isOpen,
-    place,
     handleCloseModal,
     handleCodeChange,
     handleNameChange,
+    handleCreatePlace
   } = useModalPlaceCreate();
-
-  const handleCreatePlace = () => {
-    if (!place.name || !place.code) {
-      toast.error('Existem dados inválidos!');
-      return;
-    }
-
-    // toast.promise(new Promise((resolve, reject) => {
-    //   setTimeout(() => {
-    //     createPlace(place).then((data) => {
-    //       resolve(data);
-    //     }).catch((e) => {
-    //       reject(e);
-    //     })
-    //   }, 2000)
-    // }), {
-    //   pending: FirebaseMessages.OPERATION_LOADING,
-    //   success: {
-    //     render: ({ data }) => {
-    //       setPlaces([...places, place]);
-    //       handleCloseModal();
-    //       return FirebaseMessages.OPERATION_SUCCESS;
-    //     }
-    //   },
-    //   error: {
-    //     render: (e: any) => e.message
-    //   }
-    // });
-  }
 
   return (
     <Dialog open={isOpen} onClose={handleCloseModal} fullWidth>
