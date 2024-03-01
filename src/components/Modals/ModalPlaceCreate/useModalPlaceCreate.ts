@@ -1,3 +1,4 @@
+import { useLoading } from "@/hooks/useLoading";
 import { usePlace } from "@/hooks/usePlace";
 import { Place } from "@/interfaces/Entities/Place";
 import { modalPlaceCreateState } from "@/store/modals";
@@ -6,6 +7,7 @@ import { toast } from "react-toastify";
 import { useRecoilState } from "recoil";
 
 export const useModalPlaceCreate = () => {
+  const { loading, setLoading } = useLoading();
   const [isOpen, setIsOpen] = useRecoilState(modalPlaceCreateState);
   const [place, setPlace] = useState<Place>({
     code: '',
@@ -26,9 +28,12 @@ export const useModalPlaceCreate = () => {
   const handleCreatePlace = async () => {
     const createPlacePromise = new Promise<Place>((resolve, reject) => {
       if (!place.name || !place.code) {
-        toast.error('Existem dados inválidos!');
-        reject();
+        reject({
+          message: 'Preencha todos os campos!'
+        });
       }
+
+      setLoading(true);
   
       setTimeout(() => {
         resolve(place);
@@ -46,16 +51,21 @@ export const useModalPlaceCreate = () => {
             ]
           });
           setIsOpen(false);
+          setLoading(false);
           return 'Local criado com sucesso!';
         }
       },
       error: {
-        render: () => 'Erro ao criar local'
+        render: ({ data: message }: any) => {
+          setLoading(false);
+          return message;
+        }
       }
     })
   }
 
   return {
+    loading,
     isOpen,
     place,
     handleOpenModal: () => setIsOpen(true),
