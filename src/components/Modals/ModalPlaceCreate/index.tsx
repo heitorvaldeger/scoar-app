@@ -2,10 +2,12 @@ import { Dialog, DialogActions, DialogContent, Grid } from "@mui/material";
 import { ButtonDefault } from '@/components/Buttons/ButtonDefault';
 import { InputDefault } from '@/components/Inputs/InputDefault';
 import { useModalPlaceCreate } from '@/components/Modals/ModalPlaceCreate/useModalPlaceCreate';
+import { LoadingProgress } from "@/components/Loading/LoadingDefault";
 
 export const ModalPlaceCreate = () => {
 
   const {
+    loading,
     isOpen,
     handleCloseModal,
     handleCodeChange,
@@ -54,15 +56,19 @@ export const ModalPlaceCreate = () => {
           onClick={handleCloseModal}
         />
 
-        <ButtonDefault
-          text='Confirmar'
-          variant='contained'
-          className='bg-green-600'
-          style={{
-            fontWeight: 500
-          }}
-          onClick={handleCreatePlace}
-        />
+        {
+          loading
+            ? <LoadingProgress />
+            : <ButtonDefault
+              text='Confirmar'
+              variant='contained'
+              className='bg-green-600'
+              style={{
+                fontWeight: 500
+              }}
+              onClick={handleCreatePlace}
+            />
+        }
       </DialogActions>
     </Dialog>
   );
