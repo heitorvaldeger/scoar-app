@@ -2,9 +2,11 @@ import { Dialog, DialogActions, DialogContent, Grid } from "@mui/material";
 import { ButtonDefault } from '@/components/Buttons/ButtonDefault';
 import { InputDefault } from '@/components/Inputs/InputDefault';
 import { useModalProtocolCreate } from "@/components/Modals/ModalProtocolCreate/useModalProtocolCreate";
+import { LoadingProgress } from "@/components/Loading/LoadingDefault";
 
 export const ModalProtocolCreate = () => {
   const {
+    loading,
     isOpen,
     handleCloseModal,
     handleCodeChange,
@@ -51,15 +53,20 @@ export const ModalProtocolCreate = () => {
           onClick={handleCloseModal}
         />
 
-        <ButtonDefault
-          text='Confirmar'
-          variant='contained'
-          className='bg-green-600'
-          style={{
-            fontWeight: 500
-          }}
-          onClick={handleCreateProtocol}
-        />
+        {
+          loading
+            ? <LoadingProgress />
+            : <ButtonDefault
+              text='Confirmar'
+              variant='contained'
+              className='bg-green-600'
+              style={{
+                fontWeight: 500
+              }}
+              onClick={handleCreateProtocol}
+            />
+        }
+        
       </DialogActions>
     </Dialog>
   );
