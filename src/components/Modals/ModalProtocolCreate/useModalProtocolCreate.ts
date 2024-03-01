@@ -1,3 +1,4 @@
+import { useLoading } from "@/hooks/useLoading";
 import { useProtocol } from "@/hooks/useProtocol";
 import { Protocol } from "@/interfaces/Entities/Protocol";
 import { modalProtocolCreateState } from "@/store/modals";
@@ -5,12 +6,15 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useRecoilState } from "recoil";
 
+const protocolInitialState: Protocol = {
+  code: 0,
+  name: '',
+};
+
 export const useModalProtocolCreate = () => {
   const [isOpen, setIsOpen] = useRecoilState(modalProtocolCreateState);
-  const [protocol, setProtocol] = useState<Protocol>({
-    code: 0,
-    name: '',
-  });
+  const { loading, setLoading } = useLoading();
+  const [protocol, setProtocol] = useState<Protocol>(protocolInitialState);
   const { setProtocols } = useProtocol();
   
   const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => setProtocol({
@@ -26,10 +30,12 @@ export const useModalProtocolCreate = () => {
   const handleCreateProtocol = () => {
     toast.promise(new Promise<Protocol>((resolve, reject) => {
       if (!protocol.name || !protocol.code) {
-        toast.error('Existem dados inválidos!');
-        reject();
+        reject({
+          message: 'Preencha todos os campos!'
+        });
       }
       
+      setLoading(true);
       setTimeout(() => {
         resolve(protocol);
       }, 2000);
@@ -44,16 +50,22 @@ export const useModalProtocolCreate = () => {
             ]
           })
           setIsOpen(false);
+          setLoading(false);
+          setProtocol(protocolInitialState);
           return 'Protocolo criado com sucesso!';
         }
       },
       error: {
-        render: (e: any) => e.message
+        render: ({ data }: any) => {
+          setLoading(false);
+          return data.message;
+        }
       }
     });
   }
 
   return {
+    loading,
     isOpen,
     protocol,
     handleOpenModal: () => setIsOpen(true),
