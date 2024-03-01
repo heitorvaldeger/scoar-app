@@ -1,5 +1,4 @@
 import { Dialog, DialogActions, DialogContent, Grid } from "@mui/material";
-import { toast } from 'react-toastify';
 import { ButtonDefault } from '@/components/Buttons/ButtonDefault';
 import { InputDefault } from '@/components/Inputs/InputDefault';
 import { useModalProtocolCreate } from "@/components/Modals/ModalProtocolCreate/useModalProtocolCreate";
@@ -7,44 +6,14 @@ import { useModalProtocolCreate } from "@/components/Modals/ModalProtocolCreate/
 export const ModalProtocolCreate = () => {
   const {
     isOpen,
-    protocol,
     handleCloseModal,
     handleCodeChange,
-    handleNameChange
+    handleNameChange,
+    handleCreateProtocol
   } = useModalProtocolCreate();
-
-  const handleCreateProtocol = () => {
-    if (!protocol.name || !protocol.code) {
-      toast.error('Existem dados inválidos!');
-      return;
-    }
-
-    // toast.promise(new Promise((resolve, reject) => {
-    //   setTimeout(() => {
-    //     createProtocol(protocol).then((data) => {
-    //       resolve(data);
-    //     }).catch((e) => {
-    //       reject(e);
-    //     })
-    //   }, 2000)
-    // }), {
-    //   pending: FirebaseMessages.OPERATION_LOADING,
-    //   success: {
-    //     render: ({ data }) => {
-    //       setProtocols([...protocols, protocol]);
-    //       handleCloseModal();
-    //       return FirebaseMessages.OPERATION_SUCCESS;
-    //     }
-    //   },
-    //   error: {
-    //     render: (e: any) => e.message
-    //   }
-    // });
-  }
 
   return (
     <Dialog open={isOpen} onClose={handleCloseModal} fullWidth>
-      {/* <DialogTitle>{isEdit ? 'Editando' : 'Novo'} local</DialogTitle> */}
       <DialogContent>
         <div className='py-2'>
           <Grid container spacing={2}>
