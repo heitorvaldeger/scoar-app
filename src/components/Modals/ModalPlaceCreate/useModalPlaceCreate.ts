@@ -5,9 +5,11 @@ import { modalPlaceCreateState } from "@/store/modals";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useRecoilState } from "recoil";
+import { useValidatePlaceCreate } from "./useValidatePlaceCreate";
 
 export const useModalPlaceCreate = () => {
   const { loading, setLoading } = useLoading();
+  const { validateForm, resetFormValidation, errors } = useValidatePlaceCreate();
   const [isOpen, setIsOpen] = useRecoilState(modalPlaceCreateState);
   const [place, setPlace] = useState<Place>({
     code: '',
@@ -27,17 +29,18 @@ export const useModalPlaceCreate = () => {
 
   const handleCreatePlace = async () => {
     const createPlacePromise = new Promise<Place>((resolve, reject) => {
-      if (!place.name || !place.code) {
-        reject({
-          message: 'Preencha todos os campos!'
-        });
+      const placeIsValid = validateForm(place);
+      if (placeIsValid) {
+        setLoading(true);
+
+        setTimeout(() => {
+          resolve(place);
+        }, 2000);
+
+        return;
       }
 
-      setLoading(true);
-  
-      setTimeout(() => {
-        resolve(place);
-      }, 2000);
+      reject('Existem campos inválidos!');
     });
 
     toast.promise(createPlacePromise, {
@@ -52,6 +55,7 @@ export const useModalPlaceCreate = () => {
           });
           setIsOpen(false);
           setLoading(false);
+          resetFormValidation();
           return 'Local criado com sucesso!';
         }
       },
@@ -68,8 +72,12 @@ export const useModalPlaceCreate = () => {
     loading,
     isOpen,
     place,
+    errors,
     handleOpenModal: () => setIsOpen(true),
-    handleCloseModal: () => setIsOpen(false),
+    handleCloseModal: () => {
+      setIsOpen(false);
+      resetFormValidation();
+    },
     handleCodeChange,
     handleNameChange,
     handleCreatePlace

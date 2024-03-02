@@ -9,6 +9,7 @@ export const ModalPlaceCreate = () => {
   const {
     loading,
     isOpen,
+    errors,
     handleCloseModal,
     handleCodeChange,
     handleNameChange,
@@ -17,7 +18,6 @@ export const ModalPlaceCreate = () => {
 
   return (
     <Dialog open={isOpen} onClose={handleCloseModal} fullWidth>
-      {/* <DialogTitle>{isEdit ? 'Editando' : 'Novo'} local</DialogTitle> */}
       <DialogContent>
         <div className='py-2'>
           <Grid container spacing={2}>
@@ -27,8 +27,9 @@ export const ModalPlaceCreate = () => {
                 type="text"
                 fullWidth={true}
                 variant="standard"
-                helperText='Ex.: C22, C23, C24'
                 onChange={handleCodeChange}
+                error={!errors.code.isValid}
+                helperText={errors.code.messages.length > 0 ? errors.code.messages[0] : 'Ex.: C22, C23, C24'}
               />
             </Grid>
 
@@ -38,8 +39,9 @@ export const ModalPlaceCreate = () => {
                 type="text"
                 fullWidth={true}
                 variant="standard"
-                helperText='Ex.: Lab de Eletrônica, Lab de Alimentos'
                 onChange={handleNameChange}
+                error={!errors.name.isValid}
+                helperText={errors.name.messages.length > 0 ? errors.name.messages[0] : 'Ex.: Lab de Eletrônica, Lab de Alimentos'}
               />
             </Grid>
           </Grid>
